@@ -1,18 +1,30 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppHome } from './app.home';
+import { LoginService } from './Loggin.service';
+import { RouterModule, Routes } from '@angular/router';
+import { UsuarioComponent } from './usuario/usuario.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+
+const appRoutes: Routes = [
+  {path: '', component: WelcomeComponent},
+  {path: 'usuario', component: UsuarioComponent}
+];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppHome,
+    UsuarioComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [LoginService],
+  bootstrap: [AppHome]
 })
 export class AppModule { }
