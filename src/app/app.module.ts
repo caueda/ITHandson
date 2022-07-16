@@ -8,6 +8,7 @@ import { LoginService } from './Loggin.service';
 import { RouterModule, Routes } from '@angular/router';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { UsuarioDetailComponent } from './usuario/usuario-detail/usuario-detail.component';
 
 const appRoutes: Routes = [
   {path: '', component: WelcomeComponent},
@@ -18,7 +19,8 @@ const appRoutes: Routes = [
   declarations: [
     AppHome,
     UsuarioComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    UsuarioDetailComponent
   ],
   imports: [
     BrowserModule,

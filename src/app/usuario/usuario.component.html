@@ -1,3 +1,53 @@
+<div class="w-50 mx-auto border p-4 m-4">
+    <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" id="nome" 
+                    name="nome" 
+                    ngModel 
+                    class="form-control"
+                    [(ngModel)]="usuario.nome"
+                    required
+                    #nome="ngModel">
+                    <span *ngIf="nome.invalid && nome.touched" class="help-block">O nome é obrigatório.</span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="sobrenome" class="form-label">Sobrenome</label>
+                <input type="text" id="sobrenome" 
+                    name="sobrenome" 
+                    ngModel 
+                    class="form-control"
+                    [(ngModel)]="usuario.sobrenome"
+                    required
+                    #sobrenome="ngModel">
+                    <span *ngIf="sobrenome.invalid && sobrenome.touched" class="help-block">O sobrenome é obrigatório.</span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="cpf" class="form-label">CPF</label>
+                <input type="text" 
+                    id="cpf" 
+                    name="cpf" 
+                    ngModel 
+                    class="form-control"
+                    [(ngModel)]="usuario.cpf"
+                    required
+                    #cpf="ngModel">
+                    <span *ngIf="cpf.invalid && cpf.touched" class="help-block">O CPF é obrigatório.</span>
+            </div>
+        </div>
+        <button class="btn btn-primary" 
+            type="submit"
+            [disabled]="!f.valid">Cadastrar</button>
+    </form>
+</div>
+
+<hr class="my-12"/>
+
 <table class="table">
     <thead>
       <tr>
@@ -7,12 +57,24 @@
         <th scope="col">CPF</th>
       </tr>
     </thead>
+    
     <tbody>
-      <tr *ngFor="let u of usuarios">
+      <tr *ngFor="let u of usuarios; trackBy: usuarioById">
         <th scope="row">{{u.id}}</th>
         <td>{{u.nome}}</td>
         <td>{{u.sobrenome}}</td>
         <td>{{u.cpf}}</td>
+        <td>
+            <button class="btn btn-secondary" (click)="onDelete(u.id)">Remover</button>
+        </td>
       </tr>
     </tbody>
   </table>
+
+  <div *ngIf="usuarios.length == 0 && !loading" class="alert alert-warning">Nenhum usuário encontrado.</div>
+
+  <div class="d-flex justify-content-center" *ngIf="loading">
+    <div class="spinner-border" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
