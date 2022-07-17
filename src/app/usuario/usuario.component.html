@@ -65,13 +65,17 @@
         <td>{{u.sobrenome}}</td>
         <td>{{u.cpf}}</td>
         <td>
-            <button class="btn btn-secondary" (click)="onDelete(u.id)">Remover</button>
+            <button class="btn btn-secondary" (click)="deleteUsuario(u.id)">Remover</button>
         </td>
       </tr>
     </tbody>
   </table>
 
   <div *ngIf="usuarios.length == 0 && !loading" class="alert alert-warning">Nenhum usuário encontrado.</div>
+  <div *ngIf="error" class="alert alert-danger">
+    <h1>Um Erro aconteceu</h1>
+    <p>{{error.message}}</p>
+  </div>
 
   <div class="d-flex justify-content-center" *ngIf="loading">
     <div class="spinner-border" role="status">

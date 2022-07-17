@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Usuario } from '../model/usuario.model';
+import { UsuarioService } from '../service/usuario.service';
 
 @Component({
   selector: 'app-usuario',
@@ -12,10 +13,8 @@ export class UsuarioComponent implements OnInit {
 
   @ViewChild("f") form: NgForm;
 
-  REST_API_PESSOA = 'http://localhost:8888/api/pessoa';
-
-  usuario = {
-    id: '', 
+  usuario: Usuario = {
+    id: null, 
     nome: '', 
     sobrenome: '', 
     cpf: ''
@@ -23,53 +22,59 @@ export class UsuarioComponent implements OnInit {
 
   usuarios = [];
   loading = false;
+  error = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
     this.fetchUsuarios();
   }
 
   postUsuario() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': 'http://localhost:4200',
-        'Content-Type': 'application/json'
-      })
-    }
-
-    this.http.post(this.REST_API_PESSOA, this.usuario, httpOptions).subscribe(response => {
-      console.log(response);
-      this.fetchUsuarios();
-    });
+    this.usuarioService.saveUsuario({... this.usuario})
+      .subscribe(
+        res => {
+          this.fetchUsuarios();
+          this.error = null;
+        },
+        error => {
+          this.error = error;
+        });
   }
 
   fetchUsuarios() {
+    console.log('fetching usuarios.');
     this.loading = true;
-    this.http.get<Usuario[]>(this.REST_API_PESSOA)
-    .subscribe(pessoas => {
-      const pessoasResultado = [];
-      pessoas.forEach(pessoa => pessoasResultado.push({... pessoa}));
-      this.usuarios = pessoasResultado;
-    });
+    this.usuarioService.fetchUsuarios().subscribe(
+      users => {
+        this.usuarios = [];
+        users.forEach(u => this.usuarios.push({... u}));
+        this.error = null;
+      },
+      error => {        
+        console.log('Error', error);
+        this.error = error;
+        this.loading = false;
+      }
+    );
     this.loading = false;
   }
 
   deleteUsuario(id: string) {
-    this.http.delete(this.REST_API_PESSOA + `/${id}`)
-    .subscribe(response => {
-      console.log(`Usuário com id=${id} removido com sucesso.`);
-      this.fetchUsuarios();
-    });
+    this.usuarioService.deleteUsuario(id)
+      .subscribe(
+        res => {
+          this.fetchUsuarios();
+          this.error = null;
+        },
+        error => {
+          this.error = error;
+        });
   }
 
   onSubmit() {
     this.postUsuario();
     this.form.reset();
-  }
-
-  onDelete(id: string) {
-    this.deleteUsuario(id);
   }
 
   usuarioById(index: number, usuario: Usuario) {
