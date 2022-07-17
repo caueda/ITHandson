@@ -3,4 +3,5 @@ export interface Usuario {
     nome: string;
     sobrenome: string;
     cpf: string;
+    dataNascimento: Date;
   }

@@ -3,6 +3,11 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CalendarModule} from 'primeng/calendar';
+import {InputMaskModule} from 'primeng/inputmask';
+import {PanelModule} from 'primeng/panel';
+
 import { AppHome } from './app.home';
 import { LoginService } from './Loggin.service';
 import { RouterModule, Routes } from '@angular/router';
@@ -20,12 +25,16 @@ const appRoutes: Routes = [
     AppHome,
     UsuarioComponent,
     WelcomeComponent,
-    UsuarioDetailComponent
+    UsuarioDetailComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    CalendarModule,
+    InputMaskModule,
+    BrowserAnimationsModule,
+    PanelModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [LoginService],

@@ -17,7 +17,8 @@ export class UsuarioComponent implements OnInit {
     id: null, 
     nome: '', 
     sobrenome: '', 
-    cpf: ''
+    cpf: '',
+    dataNascimento: null
   };
 
   usuarios = [];
