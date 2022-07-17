@@ -26,7 +26,8 @@
                     inputId="cpf"
                     name="cpf"
                     [(ngModel)]="usuario.cpf" 
-                    mask="999.999.999-999"
+                    mask="999.999.999-99"
+                    required="true"
                     #cpf="ngModel">
                 </p-inputMask>
             </div>
@@ -38,6 +39,7 @@
                     [(ngModel)]="usuario.dataNascimento"
                     [showIcon]="true"
                     [touchUI]="true"
+                    required="true"
                     #dataNascimento="ngModel">
                 </p-calendar>            
             </div>
