@@ -7,6 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CalendarModule} from 'primeng/calendar';
 import {InputMaskModule} from 'primeng/inputmask';
 import {PanelModule} from 'primeng/panel';
+import {TableModule} from 'primeng/table';
 
 import { AppHome } from './app.home';
 import { LoginService } from './Loggin.service';
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
     InputMaskModule,
     BrowserAnimationsModule,
     PanelModule,
+    TableModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [LoginService],

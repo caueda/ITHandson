@@ -50,31 +50,50 @@
     </form>
 </p-panel>
 
-<hr class="my-12"/>
+<br>
 
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nome</th>
-        <th scope="col">Sobrenome</th>
-        <th scope="col">CPF</th>
-      </tr>
-    </thead>
-    
-    <tbody>
-      <tr *ngFor="let u of usuarios; trackBy: usuarioById">
-        <th scope="row">{{u.id}}</th>
-        <td>{{u.nome}}</td>
-        <td>{{u.sobrenome}}</td>
-        <td>{{u.cpf}}</td>
-        <td>
-            <button class="btn btn-secondary" (click)="deleteUsuario(u.id)">Remover</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
+<div class="card">
+<p-table #dt [value]="usuarios" [rows]="10" [paginator]="true"
+        styleClass="p-datatable-striped"
+        [globalFilterFields]="['nome','sobrenome','cpf','dataNascimento']" responsiveLayout="scroll"
+        [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Usuários</h5>
+                <span class="p-input-icon-right">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Buscar" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
+                <th pSortableColumn="sobrenome">Sobrenome <p-sortIcon field="sobrenome"></p-sortIcon></th>
+                <th pSortableColumn="cpf">CPF <p-sortIcon field="cpf"></p-sortIcon></th>
+                <th pSortableColumn="dataNascimento">Data de Nascimento <p-sortIcon field="dataNascimento"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-usuario>
+            <tr>
+                <td>{{usuario.nome}}</td>
+                <td>{{usuario.sobrenome}}</td>
+                <td>{{usuario.cpf}}</td>
+                <td>{{usuario.dataNascimento | date:'yyyy-MM-dd'}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteUsuario(usuario.id)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                No total há {{usuarios ? usuarios.length : 0 }} usuários.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
   <div *ngIf="usuarios.length == 0 && !loading" class="alert alert-warning">Nenhum usuário encontrado.</div>
   <div *ngIf="error" class="alert alert-danger">
     <h1>Um Erro aconteceu</h1>
