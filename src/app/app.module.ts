@@ -8,6 +8,8 @@ import {CalendarModule} from 'primeng/calendar';
 import {InputMaskModule} from 'primeng/inputmask';
 import {PanelModule} from 'primeng/panel';
 import {TableModule} from 'primeng/table';
+import {MessageModule} from 'primeng/message';
+import {MessagesModule} from 'primeng/messages';
 
 import { AppHome } from './app.home';
 import { LoginService } from './Loggin.service';
@@ -37,6 +39,8 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     PanelModule,
     TableModule,
+    MessageModule,
+    MessagesModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [LoginService],

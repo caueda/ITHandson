@@ -8,7 +8,9 @@
                 type="text" 
                 required="true"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                pInputText [(ngModel)]="usuario.nome"> 
+                pInputText [(ngModel)]="usuario.nome"
+                #nome="ngModel">                 
+                <small *ngIf="nome.touched && nome.invalid" id="sobrenome-help" class="p-error">O nome é obrigatório.</small>
         </div>
         <div class="field">        
             <label for="sobrenome">Sobrenome</label>    
@@ -16,8 +18,11 @@
                 name="sobrenome"
                 type="text" 
                 required="true"
+                aria-describedby="sobrenome-help"
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                pInputText [(ngModel)]="usuario.sobrenome"> 
+                pInputText [(ngModel)]="usuario.sobrenome"
+                #sobrenome="ngModel"> 
+                <small *ngIf="sobrenome.touched && sobrenome.invalid" id="sobrenome-help" class="p-error">O sobrenome é obrigatório.</small>
         </div>
         <div class="p-fluid grid formgrid">
             <div class="field col-12 md:col-4">
@@ -31,8 +36,10 @@
                         showClear="true"
                         required="true"
                         ariaRequired="true"
+                        aria-describedby="cpf-help"
                         #cpf="ngModel">
                     </p-inputMask>
+                    <small *ngIf="cpf.touched && cpf.invalid" id="cpf-help" class="p-error">O CPF é obrigatório.</small>
                 </div>
             </div>
             <div class="field col-12 md:col-4">
@@ -44,11 +51,13 @@
                         [(ngModel)]="usuario.dataNascimento"
                         [showIcon]="true"
                         dateFormat="yyyy-mm-dd"
+                        aria-describedby="dataNascimento-help"
                         appendTo="body"
                         required="true"
                         showClear="true"                    
                         #dataNascimento="ngModel">
-                    </p-calendar>  
+                    </p-calendar>                      
+                    <small *ngIf="dataNascimento.touched && dataNascimento.invalid" id="dataNascimento-help" class="p-error">A data de nascimento é obrigatória.</small>
                 </div>          
             </div>
         </div>
@@ -103,7 +112,7 @@
   <div *ngIf="usuarios.length == 0 && !loading" class="alert alert-warning">Nenhum usuário encontrado.</div>
   <div *ngIf="error" class="alert alert-danger">
     <h1>Um Erro aconteceu</h1>
-    <p>{{error.message}}</p>
+    <p>{{(error.error.type !== undefined) ? "Verifique com o administrador, pois a API pode estar fora." + error.message : error.error}}</p>
   </div>
 
   <div class="d-flex justify-content-center" *ngIf="loading">
