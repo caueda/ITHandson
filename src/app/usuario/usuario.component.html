@@ -65,6 +65,10 @@
     </form>
 </p-panel>
 
+<div *ngIf="error" class="alert" [ngClass]="{'alert-danger': error.error.type !== undefined, 'alert-warning': error.error.type === undefined}">
+    <h1 *ngIf="error.error.type !== undefine">Um Erro aconteceu</h1>
+    <p>{{(error.error.type !== undefined) ? "Verifique com o administrador, pois a API pode estar fora." + error.message : error.error}}</p>
+  </div>
 <br>
 
 <div class="card">
@@ -110,11 +114,6 @@
     </p-table>
 </div>
   <div *ngIf="usuarios.length == 0 && !loading" class="alert alert-warning">Nenhum usuário encontrado.</div>
-  <div *ngIf="error" class="alert alert-danger">
-    <h1>Um Erro aconteceu</h1>
-    <p>{{(error.error.type !== undefined) ? "Verifique com o administrador, pois a API pode estar fora." + error.message : error.error}}</p>
-  </div>
-
   <div class="d-flex justify-content-center" *ngIf="loading">
     <div class="spinner-border" role="status">
       <span class="sr-only"></span>
