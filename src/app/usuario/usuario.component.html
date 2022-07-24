@@ -21,27 +21,35 @@
         </div>
         <div class="p-fluid grid formgrid">
             <div class="field col-12 md:col-4">
-                <label for="cpf">CPF</label>          
-                <p-inputMask 
-                    inputId="cpf"
-                    name="cpf"
-                    [(ngModel)]="usuario.cpf" 
-                    mask="999.999.999-99"
-                    required="true"
-                    #cpf="ngModel">
-                </p-inputMask>
+                <div class="field">
+                    <label for="cpf">CPF</label>          
+                    <p-inputMask 
+                        inputId="cpf"
+                        name="cpf"
+                        [(ngModel)]="usuario.cpf" 
+                        mask="999.999.999-99"
+                        showClear="true"
+                        required="true"
+                        ariaRequired="true"
+                        #cpf="ngModel">
+                    </p-inputMask>
+                </div>
             </div>
             <div class="field col-12 md:col-4">
-                <label for="dataNascimento">Data de Nascimento</label>
-                <p-calendar
-                    inputId="dataNascimento"
-                    name="dataNascimento" 
-                    [(ngModel)]="usuario.dataNascimento"
-                    [showIcon]="true"
-                    [touchUI]="true"
-                    required="true"
-                    #dataNascimento="ngModel">
-                </p-calendar>            
+                <div class="field">
+                    <label for="dataNascimento">Data de Nascimento</label>
+                    <p-calendar
+                        inputId="dataNascimento"
+                        name="dataNascimento" 
+                        [(ngModel)]="usuario.dataNascimento"
+                        [showIcon]="true"
+                        dateFormat="yyyy-mm-dd"
+                        appendTo="body"
+                        required="true"
+                        showClear="true"                    
+                        #dataNascimento="ngModel">
+                    </p-calendar>  
+                </div>          
             </div>
         </div>
         <p-button type="submit" [disabled]="f.invalid">Cadastrar</p-button>
