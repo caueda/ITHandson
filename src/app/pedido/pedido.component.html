@@ -1,12 +1,38 @@
 <br>
-<p-panel header="Usuário">
-    <form (ngSubmit)="onSubmit()" #f="ngForm">
-        <div class="field col-12 md:col-4">
+<p-panel header="Pedido">
+    <form (ngSubmit)="onSubmit()" #f="ngForm">        
+        <div class="p-fluid grid formgrid">
             <div class="field">
                 <label for="usuario">Usuário</label>
-                <p-dropdown id="usuario" [options]="usuarios" [(ngModel)]="pedido.pessoa"
+                <p-dropdown id="usuario" 
+                    name="usuario"
+                    [options]="usuarios" [(ngModel)]="pedido.pessoa"
                     optionLabel="label"
                     required="true"></p-dropdown>            
+            </div>
+            <div class="field col-12 md:col-4">
+                <div class="field">
+                    <label for="produto">Produto</label>
+                    <p-dropdown id="produto" 
+                        name="produto"
+                        [options]="produtos" [(ngModel)]="pedido.produto"
+                        optionLabel="nome"
+                        required="true"></p-dropdown>            
+                </div>
+            </div>            
+            <div class="field col-12 md:col-4">
+                <div class="field">
+                    <label for="quantidade">Quantidade</label>
+                    <p-inputNumber [(ngModel)]="pedido.quantidade" 
+                        name="quantidade"mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100">
+                        </p-inputNumber>       
+                </div>
+            </div>
+        </div>
+        <div class="field col-12 md:col-4">
+            <div class="field">
+                <p-image name="image" src="{{pedido?.produto?.imageUrl}}"
+                    height="450px"></p-image>
             </div>
         </div>
         <p-button type="submit" [disabled]="f.invalid">Cadastrar</p-button>

@@ -11,6 +11,8 @@ import {TableModule} from 'primeng/table';
 import {MessageModule} from 'primeng/message';
 import {MessagesModule} from 'primeng/messages';
 import {DropdownModule} from 'primeng/dropdown';
+import {ImageModule} from 'primeng/image';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 import { AppHome } from './app.home';
 import { LoginService } from './Loggin.service';
@@ -46,6 +48,8 @@ const appRoutes: Routes = [
     MessageModule,
     MessagesModule,
     DropdownModule,
+    ImageModule,
+    InputNumberModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [LoginService],

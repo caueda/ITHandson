@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Pedido } from '../model/pedido.model';
+import { Produto } from '../model/Produto.model';
 import { Usuario } from '../model/usuario.model';
+import { ProdutoService } from '../service/produto.service';
 import { UsuarioService } from '../service/usuario.service';
 
 @Component({
@@ -11,7 +13,8 @@ import { UsuarioService } from '../service/usuario.service';
 })
 export class PedidoComponent implements OnInit {
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService,
+            private produtoService: ProdutoService) { }
 
   @ViewChild("f") form: NgForm;
 
@@ -24,6 +27,7 @@ export class PedidoComponent implements OnInit {
   };
 
   usuarios: Usuario[] = [];
+  produtos: Produto[] = [];
   error: any;
 
   ngOnInit(): void {
@@ -44,6 +48,18 @@ export class PedidoComponent implements OnInit {
         this.error = null;
       },
       error => {        
+        console.log('Error', error);
+        this.error = error;
+      }
+    );
+
+    this.produtoService.fetchProdutos().subscribe(
+      produtos => {
+        this.produtos = [];
+        produtos.forEach(produto => this.produtos.push({... produto}));
+        console.log(this.produtos)
+      },
+      error => {
         console.log('Error', error);
         this.error = error;
       }
