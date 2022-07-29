@@ -2,13 +2,24 @@
 <p-panel header="Pedido">
     <form (ngSubmit)="onSubmit()" #f="ngForm">        
         <div class="p-fluid grid formgrid">
-            <div class="field">
-                <label for="usuario">Usuário</label>
-                <p-dropdown id="usuario" 
-                    name="usuario"
-                    [options]="usuarios" [(ngModel)]="pedido.pessoa"
-                    optionLabel="label"
-                    required="true"></p-dropdown>            
+            <div class="field col-12 md:col-4">
+                <div class="field">
+                    <label for="data">Data do Pedido</label>
+                    <p-calendar 
+                        name="data"
+                        inputId="data" [(ngModel)]="pedido.dataPedido">
+                    </p-calendar>           
+                </div>
+            </div>
+            <div class="field col-12 md:col-4">
+                <div class="field">
+                    <label for="usuario">Usuário</label>
+                    <p-dropdown id="usuario" 
+                        name="usuario"
+                        [options]="usuarios" [(ngModel)]="pedido.pessoa"
+                        optionLabel="label"
+                        required="true"></p-dropdown>            
+                </div>
             </div>
             <div class="field col-12 md:col-4">
                 <div class="field">
@@ -24,7 +35,7 @@
                 <div class="field">
                     <label for="quantidade">Quantidade</label>
                     <p-inputNumber [(ngModel)]="pedido.quantidade" 
-                        name="quantidade"mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100">
+                        name="quantidade"mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1" [max]="100">
                         </p-inputNumber>       
                 </div>
             </div>
@@ -35,7 +46,7 @@
                     height="450px"></p-image>
             </div>
         </div>
-        <p-button type="submit" [disabled]="f.invalid">Cadastrar</p-button>
+        <p-button type="submit" [disabled]="f.invalid">Pedir</p-button>
     </form>
 </p-panel>
 

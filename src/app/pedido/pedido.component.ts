@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Pedido } from '../model/pedido.model';
 import { Produto } from '../model/Produto.model';
 import { Usuario } from '../model/usuario.model';
+import { PedidoService } from '../service/pedido.service';
 import { ProdutoService } from '../service/produto.service';
 import { UsuarioService } from '../service/usuario.service';
 
@@ -14,7 +15,8 @@ import { UsuarioService } from '../service/usuario.service';
 export class PedidoComponent implements OnInit {
 
   constructor(private usuarioService: UsuarioService,
-            private produtoService: ProdutoService) { }
+            private produtoService: ProdutoService,
+            private pedidoService: PedidoService) { }
 
   @ViewChild("f") form: NgForm;
 
@@ -22,8 +24,8 @@ export class PedidoComponent implements OnInit {
     id: null,
     pessoa: null,
     produto: null,
-    quantidade: 0,
-    dataPedido: null
+    quantidade: 1,
+    dataPedido: new Date()
   };
 
   usuarios: Usuario[] = [];
@@ -34,8 +36,21 @@ export class PedidoComponent implements OnInit {
     this.fetchUsuarios();
   }
 
-  onSubmit() {
+  postPedido() {
+    this.pedidoService.savePedido({... this.pedido})
+      .subscribe(
+        res => {
+          this.error = null;
+        },
+        error => {
+          console.log(error);
+          this.error = error;
+        });
+  }
 
+  onSubmit() {
+    this.postPedido();
+    this.form.reset();
   }
 
   fetchUsuarios() {
