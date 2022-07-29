@@ -1,0 +1,18 @@
+<br>
+<p-panel header="Usuário">
+    <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <div class="field">
+            <label for="float-input-invalid">Usuário</label>
+            <p-dropdown [options]="usuarios" [(ngModel)]="pedido.pessoa"
+                optionLabel="label"
+                required="true"></p-dropdown>            
+        </div>
+        <p-button type="submit" [disabled]="f.invalid">Cadastrar</p-button>
+    </form>
+</p-panel>
+
+<div *ngIf="error" class="alert" [ngClass]="{'alert-danger': isUnexpectedError(), 'alert-warning': isBusinessError()}">
+    <h1 *ngIf="isUnexpectedError()">Um Erro aconteceu</h1>
+    <p>{{isUnexpectedError() ? "Verifique com o administrador, pois a API pode estar fora." + error.message : error.error}}</p>
+  </div>
+<br>

@@ -83,4 +83,12 @@ export class UsuarioComponent implements OnInit {
   usuarioById(index: number, usuario: Usuario) {
     return usuario.id;
   }
+
+  isUnexpectedError() {
+    return this.error && this.error.error.type !== undefined;
+  }
+
+  isBusinessError() {
+    return this.error && this.error.error.type === undefined;
+  }
 }

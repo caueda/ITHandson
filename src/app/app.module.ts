@@ -10,6 +10,7 @@ import {PanelModule} from 'primeng/panel';
 import {TableModule} from 'primeng/table';
 import {MessageModule} from 'primeng/message';
 import {MessagesModule} from 'primeng/messages';
+import {DropdownModule} from 'primeng/dropdown';
 
 import { AppHome } from './app.home';
 import { LoginService } from './Loggin.service';
@@ -17,10 +18,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { UsuarioDetailComponent } from './usuario/usuario-detail/usuario-detail.component';
+import { PedidoComponent } from './pedido/pedido.component';
 
 const appRoutes: Routes = [
   {path: '', component: WelcomeComponent},
-  {path: 'usuario', component: UsuarioComponent}
+  {path: 'usuario', component: UsuarioComponent},
+  {path: 'pedido', component: PedidoComponent}
 ];
 
 @NgModule({
@@ -29,6 +32,7 @@ const appRoutes: Routes = [
     UsuarioComponent,
     WelcomeComponent,
     UsuarioDetailComponent,
+    PedidoComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +45,7 @@ const appRoutes: Routes = [
     TableModule,
     MessageModule,
     MessagesModule,
+    DropdownModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [LoginService],

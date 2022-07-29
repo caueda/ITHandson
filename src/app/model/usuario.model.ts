@@ -4,4 +4,5 @@ export interface Usuario {
     sobrenome: string;
     cpf: string;
     dataNascimento: Date;
+    label?: string
   }
