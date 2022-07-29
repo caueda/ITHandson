@@ -1,11 +1,13 @@
 <br>
 <p-panel header="Usuário">
     <form (ngSubmit)="onSubmit()" #f="ngForm">
-        <div class="field">
-            <label for="float-input-invalid">Usuário</label>
-            <p-dropdown [options]="usuarios" [(ngModel)]="pedido.pessoa"
-                optionLabel="label"
-                required="true"></p-dropdown>            
+        <div class="field col-12 md:col-4">
+            <div class="field">
+                <label for="usuario">Usuário</label>
+                <p-dropdown id="usuario" [options]="usuarios" [(ngModel)]="pedido.pessoa"
+                    optionLabel="label"
+                    required="true"></p-dropdown>            
+            </div>
         </div>
         <p-button type="submit" [disabled]="f.invalid">Cadastrar</p-button>
     </form>
