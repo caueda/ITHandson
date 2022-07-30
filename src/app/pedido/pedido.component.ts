@@ -58,7 +58,7 @@ export class PedidoComponent implements OnInit {
     this.usuarioService.fetchUsuarios().subscribe(
       users => {
         this.usuarios = [];
-        users.forEach(u => this.usuarios.push({... u, label: u.cpf + ' - ' + u.nome}));
+        users.forEach(u => this.usuarios.push({... u, label: u.cpf + ' - ' + u.nome + ' ' + u.sobrenome}));
         console.log(this.usuarios)
         this.error = null;
       },

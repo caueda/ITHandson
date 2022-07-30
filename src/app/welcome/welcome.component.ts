@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ChuckNorrisJoke } from '../model/chucknorrisjoke.model';
+import { WelcomeService } from '../service/welcome.service';
 
 @Component({
   selector: 'app-welcome',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor() { }
+  chuckNorrisJoke: ChuckNorrisJoke;
 
-  ngOnInit(): void {
+  constructor(private welcomeService: WelcomeService) {}
+
+  ngOnInit(): void {    
+    this.welcomeService.getChuckNorrisJoke().subscribe(joke => this.chuckNorrisJoke = joke);
   }
 
 }

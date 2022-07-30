@@ -16,6 +16,8 @@
                     <label for="usuario">Usuário</label>
                     <p-dropdown id="usuario" 
                         name="usuario"
+                        [filter]="true"
+                        filterBy="label"
                         [options]="usuarios" [(ngModel)]="pedido.pessoa"
                         optionLabel="label"
                         required="true"></p-dropdown>            

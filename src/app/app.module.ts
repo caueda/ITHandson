@@ -15,7 +15,6 @@ import {ImageModule} from 'primeng/image';
 import {InputNumberModule} from 'primeng/inputnumber';
 
 import { AppHome } from './app.home';
-import { LoginService } from './Loggin.service';
 import { RouterModule, Routes } from '@angular/router';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -52,7 +51,7 @@ const appRoutes: Routes = [
     InputNumberModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [LoginService],
+  providers: [],
   bootstrap: [AppHome]
 })
 export class AppModule { }
