@@ -3,20 +3,20 @@
     <form (ngSubmit)="onSubmit()" #f="ngForm">
         <div class="row">
             <div class="col">
-                <label for="float-input-invalid">Nome</label>
-                <input id="float-input-invalid" 
+                <input id="nome" 
                     name="nome"
                     type="text" 
+                    placeholder="Nome"
                     required="true"
                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     pInputText [(ngModel)]="usuario.nome"
                     #nome="ngModel">                 
                     <small *ngIf="nome.touched && nome.invalid" id="sobrenome-help" class="p-error">O nome é obrigatório.</small>
             </div>
-            <div class="col">        
-                <label for="sobrenome">Sobrenome</label>    
+            <div class="col">  
                 <input id="sobrenome" 
                     name="sobrenome"
+                    placeholder="Sobrenome"
                     type="text" 
                     required="true"
                     aria-describedby="sobrenome-help"
@@ -26,42 +26,39 @@
                     <small *ngIf="sobrenome.touched && sobrenome.invalid" id="sobrenome-help" class="p-error">O sobrenome é obrigatório.</small>
             </div>
         </div>
-        <div class="p-fluid grid formgrid">
-            <div class="field col-12 md:col-4">
-                <div class="field">
-                    <label for="cpf">CPF</label>          
-                    <p-inputMask 
-                        inputId="cpf"
-                        name="cpf"
-                        [(ngModel)]="usuario.cpf" 
-                        mask="999.999.999-99"
-                        showClear="true"
-                        required="true"
-                        ariaRequired="true"
-                        aria-describedby="cpf-help"
-                        #cpf="ngModel">
-                    </p-inputMask>
-                    <small *ngIf="cpf.touched && cpf.invalid" id="cpf-help" class="p-error">O CPF é obrigatório.</small>
-                </div>
+        <div class="row">
+            <div class="col">     
+                <p-inputMask 
+                    id="cpf"
+                    inputId="cpf"
+                    name="cpf"
+                    placeholder="CPF"
+                    [(ngModel)]="usuario.cpf" 
+                    mask="999.999.999-99"
+                    showClear="true"
+                    required="true"
+                    ariaRequired="true"
+                    aria-describedby="cpf-help"
+                    #cpf="ngModel">
+                </p-inputMask>
+                <small *ngIf="cpf.touched && cpf.invalid" id="cpf-help" class="p-error">O CPF é obrigatório.</small>
             </div>
-            <div class="field col-12 md:col-4">
-                <div class="field">
-                    <label for="dataNascimento">Data de Nascimento</label>
-                    <p-calendar
-                        inputId="dataNascimento"
-                        name="dataNascimento" 
-                        [(ngModel)]="usuario.dataNascimento"
-                        [showIcon]="true"
-                        dateFormat="yyyy-mm-dd"
-                        aria-describedby="dataNascimento-help"
-                        appendTo="body"
-                        required="true"
-                        showClear="true"                    
-                        #dataNascimento="ngModel">
-                    </p-calendar>                      
-                    <small *ngIf="dataNascimento.touched && dataNascimento.invalid" id="dataNascimento-help" class="p-error">A data de nascimento é obrigatória.</small>
-                </div>          
-            </div>
+            <div class="col">
+                <p-calendar
+                    inputId="dataNascimento"
+                    name="dataNascimento" 
+                    placeholder="Data de nascimento"
+                    [(ngModel)]="usuario.dataNascimento"
+                    [showIcon]="true"
+                    dateFormat="yyyy-mm-dd"
+                    aria-describedby="dataNascimento-help"
+                    appendTo="body"
+                    required="true"
+                    showClear="true"                    
+                    #dataNascimento="ngModel">
+                </p-calendar>                      
+                <small *ngIf="dataNascimento.touched && dataNascimento.invalid" id="dataNascimento-help" class="p-error">A data de nascimento é obrigatória.</small>
+            </div>          
         </div>
         <p-button type="submit" [disabled]="f.invalid">Cadastrar</p-button>
     </form>
