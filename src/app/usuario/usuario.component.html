@@ -1,28 +1,30 @@
 <br>
 <p-panel header="Usuário">
     <form (ngSubmit)="onSubmit()" #f="ngForm">
-        <div class="field">
-            <label for="float-input-invalid">Nome</label>
-            <input id="float-input-invalid" 
-                name="nome"
-                type="text" 
-                required="true"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                pInputText [(ngModel)]="usuario.nome"
-                #nome="ngModel">                 
-                <small *ngIf="nome.touched && nome.invalid" id="sobrenome-help" class="p-error">O nome é obrigatório.</small>
-        </div>
-        <div class="field">        
-            <label for="sobrenome">Sobrenome</label>    
-            <input id="sobrenome" 
-                name="sobrenome"
-                type="text" 
-                required="true"
-                aria-describedby="sobrenome-help"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                pInputText [(ngModel)]="usuario.sobrenome"
-                #sobrenome="ngModel"> 
-                <small *ngIf="sobrenome.touched && sobrenome.invalid" id="sobrenome-help" class="p-error">O sobrenome é obrigatório.</small>
+        <div class="row">
+            <div class="col">
+                <label for="float-input-invalid">Nome</label>
+                <input id="float-input-invalid" 
+                    name="nome"
+                    type="text" 
+                    required="true"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    pInputText [(ngModel)]="usuario.nome"
+                    #nome="ngModel">                 
+                    <small *ngIf="nome.touched && nome.invalid" id="sobrenome-help" class="p-error">O nome é obrigatório.</small>
+            </div>
+            <div class="col">        
+                <label for="sobrenome">Sobrenome</label>    
+                <input id="sobrenome" 
+                    name="sobrenome"
+                    type="text" 
+                    required="true"
+                    aria-describedby="sobrenome-help"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    pInputText [(ngModel)]="usuario.sobrenome"
+                    #sobrenome="ngModel"> 
+                    <small *ngIf="sobrenome.touched && sobrenome.invalid" id="sobrenome-help" class="p-error">O sobrenome é obrigatório.</small>
+            </div>
         </div>
         <div class="p-fluid grid formgrid">
             <div class="field col-12 md:col-4">
