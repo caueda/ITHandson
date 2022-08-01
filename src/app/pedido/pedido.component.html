@@ -42,6 +42,22 @@
                         </p-inputNumber>       
                 </div>
             </div>
+            <div class="field col-12 md:col-4">
+                <div class="field">
+                    <label for="quantidade">Valor Unitário</label>
+                    <p-inputNumber [(ngModel)]="pedido.produto.preco" mode="currency" currency="BRL" locale="pt-BR"
+                        name="preco" readonly="readonly">
+                        </p-inputNumber>       
+                </div>
+            </div>
+            <div class="field col-12 md:col-4">
+                <div class="field">
+                    <label for="quantidade">Valor Total</label>
+                    <p-inputNumber [(ngModel)]="pedido.produto.preco * pedido.quantidade" mode="currency" currency="BRL" locale="pt-BR"
+                        name="valorTotal" readonly="readonly">
+                        </p-inputNumber>       
+                </div>
+            </div>
         </div>
         <div class="field col-12 md:col-4">
             <div class="field">
