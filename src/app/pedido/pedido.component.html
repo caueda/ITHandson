@@ -3,7 +3,7 @@
     <form (ngSubmit)="onSubmit()" #f="ngForm">        
         <div class="p-fluid grid formgrid">
             <div class="field col-12 md:col-4">
-                <div class="field">
+                <div class="form-group">
                     <label for="data">Data do Pedido</label>
                     <p-calendar 
                         name="data"
@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="field col-12 md:col-4">
-                <div class="field">
+                <div class="form-group">
                     <label for="usuario">Usuário</label>
                     <p-dropdown id="usuario" 
                         name="usuario"
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="field col-12 md:col-4">
-                <div class="field">
+                <div class="form-group">
                     <label for="produto">Produto</label>
                     <p-dropdown id="produto" 
                         name="produto"
@@ -35,7 +35,7 @@
                 </div>
             </div>            
             <div class="field col-12 md:col-4">
-                <div class="field">
+                <div class="form-group">
                     <label for="quantidade">Quantidade</label>
                     <p-inputNumber [(ngModel)]="pedido.quantidade" 
                         name="quantidade"mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1" [max]="100">
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="field col-12 md:col-4">
-                <div class="field">
+                <div class="form-group">
                     <label for="quantidade">Valor Unitário</label>
                     <p-inputNumber [(ngModel)]="pedido.produto.preco" mode="currency" currency="BRL" locale="pt-BR"
                         name="preco" readonly="readonly">
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="field col-12 md:col-4">
-                <div class="field">
+                <div class="form-group">
                     <label for="quantidade">Valor Total</label>
                     <p-inputNumber [(ngModel)]="pedido.produto.preco * pedido.quantidade" mode="currency" currency="BRL" locale="pt-BR"
                         name="valorTotal" readonly="readonly">
@@ -60,12 +60,12 @@
             </div>
         </div>
         <div class="field col-12 md:col-4">
-            <div class="field">
+            <div class="form-group">
                 <p-image name="image" src="{{pedido?.produto?.imageUrl}}"
                     height="450px"></p-image>
             </div>
         </div>
-        <p-button type="submit" [disabled]="f.invalid">Pedir</p-button>
+        <p-button type="submit" [disabled]="f.invalid" style="margin-top: 1.5em">Pedir</p-button>
     </form>
 </p-panel>
 
