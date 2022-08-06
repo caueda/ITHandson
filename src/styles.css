@@ -18,3 +18,7 @@ p-inputmask,
 p-calendar {
     display: block;
 }
+
+p-button {
+    margin-top: 1.5em;
+}

@@ -23,7 +23,12 @@ export class PedidoComponent implements OnInit {
   pedido: Pedido = {
     id: null,
     pessoa: null,
-    produto: null,
+    produto: {
+      nome: '',
+      descricao: '',
+      preco: 0,
+      imageUrl: ''
+    },
     quantidade: 1,
     dataPedido: new Date()
   };

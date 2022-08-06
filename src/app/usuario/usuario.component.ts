@@ -70,6 +70,7 @@ export class UsuarioComponent implements OnInit {
           this.error = null;
         },
         error => {
+          console.log(error);
           this.error = error;
         });
   }
