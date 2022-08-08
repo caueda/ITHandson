@@ -13,6 +13,9 @@ import {MessagesModule} from 'primeng/messages';
 import {DropdownModule} from 'primeng/dropdown';
 import {ImageModule} from 'primeng/image';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+import {DialogModule} from 'primeng/dialog';
 
 import { AppHome } from './app.home';
 import { RouterModule, Routes } from '@angular/router';
@@ -49,9 +52,11 @@ const appRoutes: Routes = [
     DropdownModule,
     ImageModule,
     InputNumberModule,
+    ConfirmDialogModule,
+    DialogModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [ConfirmationService],
   bootstrap: [AppHome]
 })
 export class AppModule { }

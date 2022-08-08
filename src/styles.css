@@ -15,6 +15,7 @@
 }
 
 p-inputmask,
+p-inputNumber,
 p-calendar {
     display: block;
 }

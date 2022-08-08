@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ConfirmationService } from 'primeng/api';
 import { Usuario } from '../model/usuario.model';
 import { UsuarioService } from '../service/usuario.service';
 
@@ -25,7 +26,8 @@ export class UsuarioComponent implements OnInit {
   loading = false;
   error = null;
 
-  constructor(private http: HttpClient, private usuarioService: UsuarioService) { }
+  constructor(private http: HttpClient, private usuarioService: UsuarioService,
+            private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.fetchUsuarios();
@@ -63,16 +65,21 @@ export class UsuarioComponent implements OnInit {
   }
 
   deleteUsuario(id: string) {
-    this.usuarioService.deleteUsuario(id)
-      .subscribe(
-        res => {
-          this.fetchUsuarios();
-          this.error = null;
-        },
-        error => {
-          console.log(error);
-          this.error = error;
-        });
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja apagar este usuário ?',
+      accept: () => {
+        this.usuarioService.deleteUsuario(id)
+        .subscribe(
+          res => {
+            this.fetchUsuarios();
+            this.error = null;
+          },
+          error => {
+            console.log(error);
+            this.error = error;
+          });
+      }
+    });   
   }
 
   onSubmit() {

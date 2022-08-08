@@ -75,7 +75,7 @@
 
 <div *ngIf="error" class="alert" [ngClass]="{'alert-danger': isUnexpectedError(), 'alert-warning': isBusinessError()}">
     <h1 *ngIf="isUnexpectedError()">Um Erro aconteceu</h1>
-    <p>{{isUnexpectedError() ? "Verifique com o administrador, pois a API pode estar fora." + error.message : error.message}}</p>
+    <p>{{isUnexpectedError() ? "Verifique com o administrador, pois a API pode estar fora." + error.message : error.error.message}}</p>
   </div>
 <br>
 

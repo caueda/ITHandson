@@ -1,4 +1,7 @@
 <br>
+<p-dialog showHeader="false" [(visible)]="mensagem">
+    {{mensagem}}
+  </p-dialog>
 <p-panel header="Pedido">
     <form (ngSubmit)="onSubmit()" #f="ngForm">        
         <div class="p-fluid grid formgrid">
@@ -7,9 +10,12 @@
                     <label for="data">Data do Pedido</label>
                     <p-calendar 
                         name="data"
-                        dateFormat="dd/mm/yy"       
-                        inputId="data" [(ngModel)]="pedido.dataPedido">
-                    </p-calendar>           
+                        dateFormat="dd/mm/yy"      
+                        required="true" 
+                        inputId="data" [(ngModel)]="pedido.dataPedido"
+                        #data="ngModel">
+                    </p-calendar>       
+                    <small *ngIf="data.touched && data.invalid" id="data-help" class="p-error">A data do pedido é obrigatória.</small>    
                 </div>
             </div>
             <div class="field col-12 md:col-4">
@@ -20,8 +26,12 @@
                         [filter]="true"
                         filterBy="label"
                         [options]="usuarios" [(ngModel)]="pedido.pessoa"
+                        placeholder="Selecione"
                         optionLabel="label"
-                        required="true"></p-dropdown>            
+                        required="true"
+                        #usuario="ngModel">
+                    </p-dropdown>                    
+                    <small *ngIf="usuario.touched && usuario.invalid" id="usuario-help" class="p-error">O usuário é obrigatório.</small> 
                 </div>
             </div>
             <div class="field col-12 md:col-4">
@@ -31,29 +41,39 @@
                         name="produto"
                         [options]="produtos" [(ngModel)]="pedido.produto"
                         optionLabel="nome"
-                        required="true"></p-dropdown>            
+                        placeholder="Selecione"
+                        (onChange)="updatePreco()"
+                        required="true"
+                        #produto="ngModel">
+                    </p-dropdown>    
+                    <small *ngIf="produto.touched && produto.invalid" id="produto-help" class="p-error">O produto é obrigatório.</small>         
                 </div>
             </div>            
             <div class="field col-12 md:col-4">
                 <div class="form-group">
                     <label for="quantidade">Quantidade</label>
                     <p-inputNumber [(ngModel)]="pedido.quantidade" 
-                        name="quantidade"mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1" [max]="100">
-                        </p-inputNumber>       
+                        placeholder="quantidade"
+                        required="true"
+                        name="quantidade"mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1" [max]="100"
+                        (ngModelChange)="updatePreco()"
+                        #quantidade="ngModel">
+                    </p-inputNumber>       
+                    <small *ngIf="quantidade.touched && quantidade.invalid" id="quantidade-help" class="p-error">A quantidade é obrigatória.</small> 
                 </div>
             </div>
-            <div class="field col-12 md:col-4">
+            <div class="field col-12 md:col-4" *ngIf="pedido && pedido.produto">
                 <div class="form-group">
                     <label for="quantidade">Valor Unitário</label>
-                    <p-inputNumber [(ngModel)]="pedido.produto.preco" mode="currency" currency="BRL" locale="pt-BR"
+                    <p-inputNumber [(ngModel)]="precoUnitario" mode="currency" currency="BRL" locale="pt-BR"
                         name="preco" readonly="readonly">
                         </p-inputNumber>       
                 </div>
             </div>
-            <div class="field col-12 md:col-4">
+            <div class="field col-12 md:col-4" *ngIf="pedido && pedido.produto">
                 <div class="form-group">
                     <label for="quantidade">Valor Total</label>
-                    <p-inputNumber [(ngModel)]="pedido.produto.preco * pedido.quantidade" mode="currency" currency="BRL" locale="pt-BR"
+                    <p-inputNumber [(ngModel)]="precoTotal" mode="currency" currency="BRL" locale="pt-BR"
                         name="valorTotal" readonly="readonly">
                         </p-inputNumber>       
                 </div>
@@ -71,6 +91,6 @@
 
 <div *ngIf="error" class="alert" [ngClass]="{'alert-danger': isUnexpectedError(), 'alert-warning': isBusinessError()}">
     <h1 *ngIf="isUnexpectedError()">Um Erro aconteceu</h1>
-    <p>{{isUnexpectedError() ? "Verifique com o administrador, pois a API pode estar fora." + error.message : error.error.errorMessage}}</p>
+    <p>{{isUnexpectedError() ? "Verifique com o administrador, pois a API pode estar fora." + error.message : error.error.message}}</p>
   </div>
 <br>
