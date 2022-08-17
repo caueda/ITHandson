@@ -68,13 +68,14 @@ export class OfertaComponent implements OnInit {
       .subscribe(
         res => {
           this.error = null;
+          this.mensagemSistema = "Oferta criada com sucesso."; 
           this.fetchOfertas();
         },
         error => {
           console.log(error);
+          this.mensagemSistema = null; 
           this.error = error;
-        });    
-    this.mensagemSistema = "Oferta criada com sucesso.";    
+        });           
     this.form.reset();
   }
 

@@ -26,6 +26,7 @@ export class UsuarioComponent implements OnInit {
   usuarios = [];
   loading = false;
   error = null;
+  mensagem: string;
 
   constructor(private http: HttpClient, private usuarioService: UsuarioService,
             private confirmationService: ConfirmationService) { }
@@ -40,10 +41,12 @@ export class UsuarioComponent implements OnInit {
         res => {
           this.fetchUsuarios();
           this.error = null;
+          this.mensagem = "Usuário criado com sucesso."
         },
         error => {
           console.log(error);
           this.error = error;
+          this.mensagem = null;
         });
   }
 

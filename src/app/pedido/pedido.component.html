@@ -1,25 +1,28 @@
 <p-dialog showHeader="false" [(visible)]="mensagem">
     {{mensagem}}
-  </p-dialog>
+</p-dialog>
+<div *ngIf="error" class="alert" [ngClass]="{'alert-danger': isUnexpectedError(), 'alert-warning': isBusinessError()}">
+    <h1 *ngIf="isUnexpectedError()">Um Erro aconteceu</h1>
+    <p>{{isUnexpectedError() ? "Verifique com o administrador, pois a API pode estar fora." + error.message : error.error.message}}</p>
+</div>  
 <p-panel header="Pedido">
     <form (ngSubmit)="onSubmit()" #f="ngForm">        
         <div class="p-fluid grid formgrid">
-            <div class="field col-12 md:col-4">
-                <div class="form-group">
-                    <label for="data">Data do Pedido</label>
+            <div class="field col-12 md:col-4 mt-4">
+                <div class="p-float-label">
                     <p-calendar 
                         name="data"
                         dateFormat="dd/mm/yy"      
                         required="true" 
                         inputId="data" [(ngModel)]="pedido.dataPedido"
                         #data="ngModel">
-                    </p-calendar>       
-                    <small *ngIf="data.touched && data.invalid" id="data-help" class="p-error">A data do pedido é obrigatória.</small>    
+                    </p-calendar>
+                    <label for="data">Data do Pedido</label>          
                 </div>
+                <small *ngIf="data.touched && data.invalid" id="data-help" class="p-error">A data do pedido é obrigatória.</small> 
             </div>
-            <div class="field col-12 md:col-4">
-                <div class="form-group">
-                    <label for="usuario">Usuário</label>
+            <div class="field col-12 md:col-4 mt-4">
+                <div class="p-float-label">
                     <p-dropdown id="usuario" 
                         name="usuario"
                         [filter]="true"
@@ -28,14 +31,15 @@
                         placeholder="Selecione"
                         optionLabel="label"
                         required="true"
+                        [ngClass]="usuario.touched && usuario.invalid ? 'ng-dirty ng-invalid mr-2' : ''"
                         #usuario="ngModel">
-                    </p-dropdown>                    
-                    <small *ngIf="usuario.touched && usuario.invalid" id="usuario-help" class="p-error">O usuário é obrigatório.</small> 
+                    </p-dropdown>    
+                    <label for="usuario">Usuário</label>                
                 </div>
+                <small *ngIf="usuario.touched && usuario.invalid" id="usuario-help" class="p-error">O usuário é obrigatório.</small> 
             </div>
-            <div class="field col-12 md:col-4">
-                <div class="form-group">
-                    <label for="produto">Produto</label>
+            <div class="field col-12 md:col-4 mt-4">
+                <div class="p-float-label">
                     <p-dropdown id="produto" 
                         name="produto"
                         [options]="produtos" [(ngModel)]="pedido.produto"
@@ -43,38 +47,42 @@
                         placeholder="Selecione"
                         (onChange)="updatePreco()"
                         required="true"
+                        [ngClass]="produto.touched && produto.invalid ? 'ng-dirty ng-invalid mr-2' : ''"
                         #produto="ngModel">
                     </p-dropdown>    
-                    <small *ngIf="produto.touched && produto.invalid" id="produto-help" class="p-error">O produto é obrigatório.</small>         
+                    <label for="produto">Produto</label>        
                 </div>
+                <small *ngIf="produto.touched && produto.invalid" id="produto-help" class="p-error">O produto é obrigatório.</small> 
             </div>            
-            <div class="field col-12 md:col-4">
-                <div class="form-group">
-                    <label for="quantidade">Quantidade</label>
+            <div class="field col-12 md:col-4 mt-4">
+                <div class="p-float-label">
                     <p-inputNumber [(ngModel)]="pedido.quantidade" 
                         placeholder="quantidade"
                         required="true"
                         name="quantidade"mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1" [max]="100"
+                        [ngClass]="quantidade.touched && quantidade.invalid ? 'ng-dirty ng-invalid mr-2' : ''"
                         (ngModelChange)="updatePreco()"
                         #quantidade="ngModel">
                     </p-inputNumber>       
-                    <small *ngIf="quantidade.touched && quantidade.invalid" id="quantidade-help" class="p-error">A quantidade é obrigatória.</small> 
+                    <label for="quantidade">Quantidade</label>
                 </div>
+                <small *ngIf="quantidade.touched && quantidade.invalid" id="quantidade-help" class="p-error">A quantidade é obrigatória.</small> 
             </div>
-            <div class="field col-12 md:col-4" *ngIf="pedido && pedido.produto">
-                <div class="form-group">
-                    <label for="quantidade">Valor Unitário</label>
-                    <p-inputNumber [(ngModel)]="precoUnitario" mode="currency" currency="BRL" locale="pt-BR"
+            <div class="field col-12 md:col-4 mt-4" *ngIf="pedido && pedido.produto">
+                <div class="p-float-label">
+                    <p-inputNumber [(ngModel)]="precoUnitario" 
+                        mode="currency" currency="BRL" locale="pt-BR"
                         name="preco" readonly="readonly">
-                        </p-inputNumber>       
+                    </p-inputNumber>   
+                    <label for="quantidade">Valor Unitário</label>    
                 </div>
             </div>
-            <div class="field col-12 md:col-4" *ngIf="pedido && pedido.produto">
-                <div class="form-group">
-                    <label for="quantidade">Valor Total</label>
+            <div class="field col-12 md:col-4 mt-4" *ngIf="pedido && pedido.produto">
+                <div class="p-float-label">
                     <p-inputNumber [(ngModel)]="precoTotal" mode="currency" currency="BRL" locale="pt-BR"
                         name="valorTotal" readonly="readonly">
-                        </p-inputNumber>       
+                    </p-inputNumber>                        
+                    <label for="quantidade">Valor Total</label>
                 </div>
             </div>
         </div>
@@ -87,9 +95,3 @@
         <p-button type="submit" [disabled]="f.invalid">Pedir</p-button>
     </form>
 </p-panel>
-
-<div *ngIf="error" class="alert" [ngClass]="{'alert-danger': isUnexpectedError(), 'alert-warning': isBusinessError()}">
-    <h1 *ngIf="isUnexpectedError()">Um Erro aconteceu</h1>
-    <p>{{isUnexpectedError() ? "Verifique com o administrador, pois a API pode estar fora." + error.message : error.error.message}}</p>
-  </div>
-<br>

@@ -41,13 +41,14 @@ export class PedidoComponent implements OnInit {
       .subscribe(
         res => {
           this.error = null;
+          this.mensagem = "Pedido criado com sucesso.";
         },
         error => {
           console.log(error);
           this.error = error;
+          this.mensagem = null;
         });
     this.initializePedido();      
-    this.mensagem = "Pedido criado com sucesso.";
     this.form.reset();
   }
   
