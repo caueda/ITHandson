@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
 import { Pedido } from '../model/pedido.model';
 import { Produto } from '../model/Produto.model';
 import { Usuario } from '../model/usuario.model';
@@ -18,7 +17,6 @@ export class PedidoComponent implements OnInit {
   constructor(private usuarioService: UsuarioService,
             private produtoService: ProdutoService,
             private pedidoService: PedidoService,
-            private confirmationService: ConfirmationService,
             private router: Router, private route: ActivatedRoute) { }
 
   @ViewChild("f") form: NgForm;
@@ -35,6 +33,7 @@ export class PedidoComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchUsuarios();
+    this.fetchProdutos();
   }
 
   postPedido() {
@@ -93,7 +92,9 @@ export class PedidoComponent implements OnInit {
         this.error = error;
       }
     );
+  }  
 
+  fetchProdutos(){
     this.produtoService.fetchProdutos().subscribe(
       produtos => {
         this.produtos = [];
@@ -104,8 +105,8 @@ export class PedidoComponent implements OnInit {
         console.log('Error', error);
         this.error = error;
       }
-    );
-  }  
+    );    
+  }
 
   isUnexpectedError() {
     return this.error && this.error.error.type !== undefined;

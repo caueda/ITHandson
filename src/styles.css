@@ -3,7 +3,7 @@
     padding: 0 5px;
 }
 
-.form-group>label {
+/* .form-group>label {
     position: relative;
     top: 12px;
     padding: 0 10px;
@@ -23,3 +23,7 @@ p-calendar {
 p-button {
     margin-top: 1.5em;
 }
+
+p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
+    border: 1px solid #ced4da;
+} */

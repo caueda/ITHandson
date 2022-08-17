@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { Usuario } from '../model/usuario.model';
@@ -8,7 +8,8 @@ import { UsuarioService } from '../service/usuario.service';
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
-  styleUrls: ['./usuario.component.css']
+  styleUrls: ['./usuario.component.css'],
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class UsuarioComponent implements OnInit {
 

@@ -16,6 +16,9 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import {DialogModule} from 'primeng/dialog';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {CarouselModule} from 'primeng/carousel';
+import {CardModule} from 'primeng/card';
 
 import { AppHome } from './app.home';
 import { RouterModule, Routes } from '@angular/router';
@@ -23,11 +26,13 @@ import { UsuarioComponent } from './usuario/usuario.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { UsuarioDetailComponent } from './usuario/usuario-detail/usuario-detail.component';
 import { PedidoComponent } from './pedido/pedido.component';
+import { OfertaComponent } from './oferta/oferta.component';
 
 const appRoutes: Routes = [
   {path: '', component: WelcomeComponent},
   {path: 'usuario', component: UsuarioComponent},
-  {path: 'pedido', component: PedidoComponent}
+  {path: 'pedido', component: PedidoComponent},
+  {path: 'oferta', component: OfertaComponent}
 ];
 
 @NgModule({
@@ -37,6 +42,7 @@ const appRoutes: Routes = [
     WelcomeComponent,
     UsuarioDetailComponent,
     PedidoComponent,
+    OfertaComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +60,9 @@ const appRoutes: Routes = [
     InputNumberModule,
     ConfirmDialogModule,
     DialogModule,
+    InputTextareaModule,
+    CarouselModule,
+    CardModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ConfirmationService],

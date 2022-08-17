@@ -1,0 +1,94 @@
+<p-dialog showHeader="false" [(visible)]="mensagemSistema">
+    {{mensagemSistema}}
+  </p-dialog>
+<p-panel header="Oferta">
+    <form (ngSubmit)="onSubmit()" #f="ngForm">        
+        <div class="p-fluid grid p-4">
+            <div class="field col-12 md:col-4">
+                <div class="p-float-label">
+                    <p-dropdown id="produto" 
+                        name="produto"
+                        [options]="produtos" [(ngModel)]="ofertaBody.produto"
+                        optionLabel="nome"
+                        placeholder="Selecione"
+                        required="true"
+                        (onChange)="updatePreco()"
+                        [ngClass]="produto.touched && produto.invalid ? 'ng-dirty ng-invalid mr-2' : ''"
+                        #produto="ngModel">
+                    </p-dropdown>    
+                    <label for="produto">Produto</label>                    
+                </div>      
+                <small *ngIf="produto.touched && produto.invalid" id="username-help" class="p-error">O produto é obrigatório.</small>          
+            </div>
+            <div class="field col-12 md:col-4" *ngIf="produto">
+                <div class="p-float-label">                    
+                    <p-inputNumber [(ngModel)]="precoUnitario" mode="currency" currency="BRL" locale="pt-BR"
+                        name="preco" readonly="readonly">
+                    </p-inputNumber>   
+                    <label for="quantidade">Valor Unitário</label>    
+                </div>
+            </div>
+            <div class="field col-12 md:col-4">
+                <div class="p-float-label">
+                    <p-inputNumber [(ngModel)]="oferta.desconto" locale="pt-BR"
+                        name="desconto"
+                        required="true"
+                        [ngClass]="desconto.touched && desconto.invalid ? 'ng-dirty ng-invalid mr-2' : ''"
+                        #desconto>
+                    </p-inputNumber>       
+                    <label for="desconto">Desconto</label>
+                </div>
+                <small *ngIf="desconto.touched && desconto.invalid" id="username-help" class="p-error">O desconto é obrigatório.</small>   
+            </div>            
+            <div class="field col-12 md:col-4">
+                <div class="p-float-label">
+                    <textarea id="mensagemOferta" rows="5" cols="30" 
+                        name="mensageOferta"
+                        pInputTextarea [(ngModel)]="oferta.mensagem"
+                        required="true"
+                        [ngClass]="mensagemOferta.touched && mensagemOferta.invalid ? 'ng-dirty ng-invalid mr-2' : ''"
+                        #mensagemOferta="ngModel"></textarea>
+                    <label for="mensagemOferta">Mensagem</label>
+                </div>
+                <small *ngIf="mensagemOferta.touched && mensagemOferta.invalid" id="username-help" class="p-error">A mensagem da oferta é obrigatória.</small>   
+            </div>
+        </div>
+        <div class="field col-12 md:col-4">
+            <div class="form-group">
+                <p-image name="image" src="{{ofertaBody.produto?.imageUrl}}"
+                    height="450px"></p-image>
+            </div>
+        </div>
+        <p-button type="submit" [disabled]="f.invalid">Criar</p-button>
+    </form>
+</p-panel>
+<br>
+<p-card header="Ofertas Imperdíveis" *ngIf="hasOfertas()">
+    <p-carousel [value]="ofertas" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
+        <ng-template let-oferta pTemplate="item">
+            <div class="product-item">
+                <div class="product-item-content">
+                    <div class="mb-3">
+                        <img src="{{oferta.imageProdutoUrl}}" [alt]="oferta.mensagem" class="product-image" style="width:10%"/>
+                    </div>
+                    <div>
+                        <h4 class="mb-1">{{oferta.mensagem}}</h4>
+                        <h6 class="mt-0 mb-3">R$ {{oferta.desconto}}</h6>
+                        <span [class]="'product-badge status-'+oferta.situacao.toLowerCase()">{{oferta.situacao}}</span>
+                        <div class="car-buttons mt-5">
+                            <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
+                            <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
+                            <p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"></p-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+</p-card>
+
+<div *ngIf="error" class="alert" [ngClass]="{'alert-danger': isUnexpectedError(), 'alert-warning': isBusinessError()}">
+    <h1 *ngIf="isUnexpectedError()">Um Erro aconteceu</h1>
+    <p>{{isUnexpectedError() ? "Verifique com o administrador, pois a API pode estar fora." + error.message : error.error.message}}</p>
+  </div>
+<br>
