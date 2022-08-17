@@ -3,27 +3,9 @@
     padding: 0 5px;
 }
 
-/* .form-group>label {
-    position: relative;
-    top: 12px;
-    padding: 0 10px;
-    left: 20px;
-    color: gray;
-    background-color: white;
-    z-index: 10;
-    font-size: 0.9em;
+.rodape {
+    width: 100%;
+    position: fixed;
+    bottom: 1.2em;  
+    margin-left: 1.5em;
 }
-
-p-inputmask,
-p-inputNumber,
-p-calendar {
-    display: block;
-}
-
-p-button {
-    margin-top: 1.5em;
-}
-
-p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
-    border: 1px solid #ced4da;
-} */
