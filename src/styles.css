@@ -5,7 +5,8 @@
 
 .rodape {
     width: 100%;
-    position: fixed;
+    position: relative;
     bottom: 1.2em;  
-    margin-left: 1.5em;
+    margin-top: 2em;
+    margin-left: 0.5em;
 }
