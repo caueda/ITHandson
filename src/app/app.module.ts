@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -28,12 +28,14 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { UsuarioDetailComponent } from './usuario/usuario-detail/usuario-detail.component';
 import { PedidoComponent } from './pedido/pedido.component';
 import { OfertaComponent } from './oferta/oferta.component';
+import { ProdutoComponent } from './produto/produto.component';
 
 const appRoutes: Routes = [
   {path: '', component: WelcomeComponent},
   {path: 'usuario', component: UsuarioComponent},
   {path: 'pedido', component: PedidoComponent},
-  {path: 'oferta', component: OfertaComponent}
+  {path: 'oferta', component: OfertaComponent},
+  {path: 'produto', component: ProdutoComponent}
 ];
 
 @NgModule({
@@ -44,6 +46,7 @@ const appRoutes: Routes = [
     UsuarioDetailComponent,
     PedidoComponent,
     OfertaComponent,
+    ProdutoComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +71,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ConfirmationService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], 
   bootstrap: [AppHome]
 })
 export class AppModule { }
