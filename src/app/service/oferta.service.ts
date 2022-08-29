@@ -5,7 +5,7 @@ import { Oferta } from "../model/oferta.model";
 @Injectable({providedIn: 'root'})
 export class OfertaService {
 
-    REST_API_OFERTA = 'http://localhost:8080/api/oferta';
+    REST_API_OFERTA = 'http://localhost:9999/api/oferta';
 
     constructor(private http: HttpClient) {}
 
