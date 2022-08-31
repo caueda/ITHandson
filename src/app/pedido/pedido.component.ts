@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit,  ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Pedido } from '../model/pedido.model';
 import { Produto } from '../model/Produto.model';
+import { ResumoPedido } from '../model/resumoPedido.model';
 import { Usuario } from '../model/usuario.model';
 import { PedidoService } from '../service/pedido.service';
 import { ProdutoService } from '../service/produto.service';
@@ -25,6 +26,7 @@ export class PedidoComponent implements OnInit {
 
   usuarios: Usuario[] = [];
   produtos: Produto[] = [];
+  resumoPedidos: ResumoPedido[] = [];
   precoUnitario: number;
   precoTotal: number;
   mensagem: string;
@@ -34,6 +36,7 @@ export class PedidoComponent implements OnInit {
   ngOnInit(): void {
     this.fetchUsuarios();
     this.fetchProdutos();
+    this.fetchResumoPedidos();
   }
 
   postPedido() {
@@ -41,14 +44,15 @@ export class PedidoComponent implements OnInit {
       .subscribe(
         res => {
           this.error = null;
-          this.mensagem = "Pedido criado com sucesso.";
+          this.mensagem = "Pedido criado com sucesso.";          
+          this.fetchResumoPedidos();   
         },
         error => {
           console.log(error);
           this.error = error;
           this.mensagem = null;
         });
-    this.initializePedido();      
+    this.initializePedido();   
     this.form.reset();
   }
   
@@ -107,6 +111,19 @@ export class PedidoComponent implements OnInit {
         this.error = error;
       }
     );    
+  }
+
+  fetchResumoPedidos() {
+    console.log('fetching resumo pedidos.');
+    this.pedidoService.getResumo().subscribe(
+      resumos => {
+        this.resumoPedidos = [];
+        resumos.forEach(r => this.resumoPedidos.push({... r}));
+      },
+      error => {        
+        console.log('Error', error);
+      }
+    );
   }
 
   isUnexpectedError() {

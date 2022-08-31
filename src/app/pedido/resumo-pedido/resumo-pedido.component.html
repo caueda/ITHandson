@@ -1,0 +1,32 @@
+<div class="card">
+    <p-table #dt [value]="resumoPedidos" [rows]="10" [paginator]="true"
+            styleClass="p-datatable-striped"
+            [globalFilterFields]="['produto','quantidadeTotal','precoTotal']" responsiveLayout="scroll"
+            [rowHover]="true" dataKey="id"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between">
+                    <h5 class="m-0">Resumo dos Pedidos</h5>
+                    <span class="p-input-icon-right">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Buscar" />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="produto">Produto <p-sortIcon field="produto"></p-sortIcon></th>
+                    <th pSortableColumn="quantidadeTotal">Quantidade Total <p-sortIcon field="quantidadeTotal"></p-sortIcon></th>
+                    <th pSortableColumn="precoTotal">Preço Total <p-sortIcon field="precoTotal"></p-sortIcon></th>                    
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-resumo>
+                <tr>
+                    <td>{{resumo.produto}}</td>
+                    <td>{{resumo.quantidadeTotal}}</td>
+                    <td>{{resumo.precoTotal}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>

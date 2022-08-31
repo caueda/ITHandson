@@ -29,6 +29,7 @@ import { UsuarioDetailComponent } from './usuario/usuario-detail/usuario-detail.
 import { PedidoComponent } from './pedido/pedido.component';
 import { OfertaComponent } from './oferta/oferta.component';
 import { ProdutoComponent } from './produto/produto.component';
+import { ResumoPedidoComponent } from './pedido/resumo-pedido/resumo-pedido.component';
 
 const appRoutes: Routes = [
   {path: '', component: WelcomeComponent},
@@ -47,6 +48,7 @@ const appRoutes: Routes = [
     PedidoComponent,
     OfertaComponent,
     ProdutoComponent,
+    ResumoPedidoComponent,
   ],
   imports: [
     BrowserModule,
