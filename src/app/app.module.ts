@@ -20,6 +20,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {CarouselModule} from 'primeng/carousel';
 import {CardModule} from 'primeng/card';
 import {InputTextModule} from 'primeng/inputtext';
+import {ChartModule} from 'primeng/chart';
 
 import { AppHome } from './app.home';
 import { RouterModule, Routes } from '@angular/router';
@@ -70,6 +71,7 @@ const appRoutes: Routes = [
     CarouselModule,
     CardModule,
     InputTextModule,
+    ChartModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ConfirmationService],

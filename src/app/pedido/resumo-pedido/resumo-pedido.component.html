@@ -1,16 +1,17 @@
-<div class="card">
-    <p-table #dt [value]="resumoPedidos" [rows]="10" [paginator]="true"
-            styleClass="p-datatable-striped"
+<br>
+<div class="p-fluid grid">
+    <div class="field w-50">
+        <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+    </div>
+    <div class="field w-50">
+        <p-table #dt [value]="resumoPedidos" [rows]="10" [paginator]="false"
+            styleClass="p-datatable-striped p-datatable-sm"
             [globalFilterFields]="['produto','quantidadeTotal','precoTotal']" responsiveLayout="scroll"
             [rowHover]="true" dataKey="id"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
                 <div class="flex align-items-center justify-content-between">
                     <h5 class="m-0">Resumo dos Pedidos</h5>
-                    <span class="p-input-icon-right">
-                        <i class="pi pi-search"></i>
-                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Buscar" />
-                    </span>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
@@ -30,3 +31,4 @@
             </ng-template>
         </p-table>
     </div>
+</div>

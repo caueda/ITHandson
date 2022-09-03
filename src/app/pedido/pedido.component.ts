@@ -27,6 +27,7 @@ export class PedidoComponent implements OnInit {
   usuarios: Usuario[] = [];
   produtos: Produto[] = [];
   resumoPedidos: ResumoPedido[] = [];
+  basicData: any;
   precoUnitario: number;
   precoTotal: number;
   mensagem: string;
@@ -113,12 +114,31 @@ export class PedidoComponent implements OnInit {
     );    
   }
 
+  getBasicDataFromResumoPedidos(resumoPedidos: ResumoPedido[]) {
+    this.basicData = {
+      labels: resumoPedidos.map((resumo) => resumo.produto),
+      datasets: [
+        {
+          label: 'Quantidade',
+          backgroundColor: '#42A5F5',
+          data: resumoPedidos.map((resumo) => resumo.quantidadeTotal),
+        },
+        {
+          label: 'Total R$',
+          backgroundColor: '#FFA726',
+          data: resumoPedidos.map((resumo) => resumo.precoTotal),
+        },
+      ],
+    };
+  }
+
   fetchResumoPedidos() {
     console.log('fetching resumo pedidos.');
     this.pedidoService.getResumo().subscribe(
       resumos => {
         this.resumoPedidos = [];
         resumos.forEach(r => this.resumoPedidos.push({... r}));
+        this.getBasicDataFromResumoPedidos(this.resumoPedidos);
       },
       error => {        
         console.log('Error', error);
