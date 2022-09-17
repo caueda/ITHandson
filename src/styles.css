@@ -6,7 +6,16 @@
 .rodape {
     width: 100%;
     position: relative;
+    font-weight: bold;
     bottom: 1.2em;  
     margin-top: 2em;
     margin-left: 0.5em;
+}
+
+h5 {
+    background-color: lightblue;
+    color:white; 
+    border-radius: 5px; 
+    text-align: center; 
+    font-family: verdana;  
 }
