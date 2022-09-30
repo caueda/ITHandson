@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   oferta_service_host: 'http://localhost:9999/',
-  pedido_service_host: 'http://localhosts:8888/'
+  pedido_service_host: 'http://localhost:8888/'
 };
 
 /*
