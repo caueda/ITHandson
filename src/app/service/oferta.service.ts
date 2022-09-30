@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Oferta } from "../model/oferta.model";
+import { environment } from "src/environments/environment";
 
 @Injectable({providedIn: 'root'})
 export class OfertaService {
 
-    REST_API_OFERTA = 'http://localhost:9999/api/oferta';
+    REST_API_OFERTA = environment.oferta_service_host + 'api/oferta';
 
     constructor(private http: HttpClient) {}
 

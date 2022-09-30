@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Usuario } from "../model/usuario.model";
+import { environment } from "src/environments/environment";
 
 @Injectable({providedIn: 'root'})
 export class UsuarioService {
 
-    REST_API_PESSOA = 'http://localhost:8888/api/pessoa';
+    REST_API_PESSOA = environment.pedido_service_host + 'api/pessoa';
 
     constructor(private http: HttpClient) {}
 
