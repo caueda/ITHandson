@@ -8,6 +8,7 @@ import { Usuario } from '../model/usuario.model';
 import { PedidoService } from '../service/pedido.service';
 import { ProdutoService } from '../service/produto.service';
 import { UsuarioService } from '../service/usuario.service';
+import { PaginatedResponse } from '../model/paginatedResponse';
 
 @Component({
   selector: 'app-pedido',
@@ -24,7 +25,7 @@ export class PedidoComponent implements OnInit {
 
   pedido: Pedido = this.initializePedido();
 
-  usuarios: Usuario[] = [];
+  paginatedResponse: PaginatedResponse<Usuario>;
   produtos: Produto[] = [];
   resumoPedidos: ResumoPedido[] = [];
   basicData: any;
@@ -87,12 +88,7 @@ export class PedidoComponent implements OnInit {
   fetchUsuarios() {
     console.log('fetching usuarios.');
     this.usuarioService.fetchUsuarios().subscribe(
-      users => {
-        this.usuarios = [];
-        users.forEach(u => this.usuarios.push({... u, label: u.cpf + ' - ' + u.nome + ' ' + u.sobrenome}));
-        console.log(this.usuarios)
-        this.error = null;
-      },
+      paginatedResponse => this.paginatedResponse = {... paginatedResponse},
       error => {        
         console.log('Error', error);
         this.error = error;

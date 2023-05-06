@@ -8,6 +8,7 @@ import {CalendarModule} from 'primeng/calendar';
 import {InputMaskModule} from 'primeng/inputmask';
 import {PanelModule} from 'primeng/panel';
 import {TableModule} from 'primeng/table';
+import { PaginatorModule } from 'primeng/paginator';
 import {MessageModule} from 'primeng/message';
 import {MessagesModule} from 'primeng/messages';
 import {DropdownModule} from 'primeng/dropdown';
@@ -60,6 +61,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     PanelModule,
     TableModule,
+    PaginatorModule,
     MessageModule,
     MessagesModule,
     DropdownModule,

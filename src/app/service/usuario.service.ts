@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Usuario } from "../model/usuario.model";
 import { environment } from "src/environments/environment";
+import { PaginatedResponse } from "../model/paginatedResponse";
 
 @Injectable({providedIn: 'root'})
 export class UsuarioService {
@@ -15,7 +16,21 @@ export class UsuarioService {
     }
 
     fetchUsuarios() {
-       return this.http.get<Usuario[]>(this.REST_API_PESSOA);
+        let params = new HttpParams()
+        .set('page', '0')
+        .set('size', '100');
+       return this.http.get<PaginatedResponse<Usuario>>(this.REST_API_PESSOA, {params: params});
+    }
+
+    fetchCountUsuarios() {
+        return this.http.get<number>(this.REST_API_PESSOA + '/total');
+    }
+
+    fetchUsuariosPaginated(page: number = 0, size: number = 10) {
+        let params = new HttpParams()
+        .set('page', page.toString())
+        .set('size', size.toString());
+       return this.http.get<PaginatedResponse<Usuario>>(this.REST_API_PESSOA, {params: params});
     }
 
     deleteUsuario(id: string) {

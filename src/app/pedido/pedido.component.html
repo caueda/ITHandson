@@ -28,7 +28,7 @@
                         name="usuario"
                         [filter]="true"
                         filterBy="label"
-                        [options]="usuarios" [(ngModel)]="pedido.pessoa"
+                        [options]="paginatedResponse.content" [(ngModel)]="pedido.pessoa"
                         placeholder="Selecione"
                         optionLabel="label"
                         required="true"

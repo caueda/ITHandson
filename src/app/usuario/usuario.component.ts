@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { Usuario } from '../model/usuario.model';
 import { UsuarioService } from '../service/usuario.service';
+import { PaginatedResponse } from '../model/paginatedResponse';
 
 @Component({
   selector: 'app-usuario',
@@ -23,7 +24,12 @@ export class UsuarioComponent implements OnInit {
     dataNascimento: null
   };
 
-  usuarios = [];
+  paginatedResponse: PaginatedResponse<Usuario>;
+  first: number = 0;
+  rows: number = 5;
+  total: number = 0;
+  usuarios: Usuario[] = [];
+
   loading = false;
   error = null;
   mensagem: string;
@@ -33,6 +39,14 @@ export class UsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchUsuarios();
+    this.fetchCountUsuarios();
+  }
+
+  onPage(event) {
+    console.log('onPage', event);
+    this.first = Math.floor(event.first / event.rows); 
+    this.fetchUsuarios();
+    this.loading = false;
   }
 
   postUsuario() {
@@ -50,22 +64,41 @@ export class UsuarioComponent implements OnInit {
         });
   }
 
+  fetchCountUsuarios() {
+    this.usuarioService.fetchCountUsuarios().subscribe(
+      count => this.total = count,
+      error => {
+        console.log('Error', error);
+        this.error = error;
+      }
+    );
+  }
+
   fetchUsuarios() {
     console.log('fetching usuarios.');
     this.loading = true;
-    this.usuarioService.fetchUsuarios().subscribe(
-      users => {
-        this.usuarios = [];
-        users.forEach(u => this.usuarios.push({... u}));
-        this.error = null;
+    console.log("fetchUsuarios first: ", this.first);
+    this.usuarioService.fetchUsuariosPaginated(this.first, this.rows).subscribe(
+      paginatedResponse => {
+        console.log('Response', paginatedResponse);
+        this.paginatedResponse = {...paginatedResponse};
       },
       error => {        
         console.log('Error', error);
         this.error = error;
         this.loading = false;
+      },
+      () => {
+        this.loading = false;
+        if(this.paginatedResponse && this.paginatedResponse.content) {
+          this.usuarios = [];
+          this.paginatedResponse.content.forEach(usuario => {
+            this.usuarios.push(usuario);  
+          });
+          console.log("usuarios: ", this.usuarios);
+        } 
       }
-    );
-    this.loading = false;
+    );       
   }
 
   deleteUsuario(id: string) {
@@ -95,6 +128,31 @@ export class UsuarioComponent implements OnInit {
   usuarioById(index: number, usuario: Usuario) {
     return usuario.id;
   }
+
+
+  next() {
+    this.first = this.first + this.rows;
+    this.fetchUsuarios();
+  }
+
+  prev() {
+      this.first = this.first - this.rows;
+      this.fetchUsuarios();
+  }
+
+  reset() {
+      this.first = 0;
+      this.fetchUsuarios();
+  }
+
+  isLastPage(): boolean {
+      return this.first === this.total;
+  }
+
+  isFirstPage(): boolean {
+      return this.first === 0;
+  }
+
 
   isUnexpectedError() {
     return this.error && this.error.error.type !== undefined;
