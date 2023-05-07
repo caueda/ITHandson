@@ -22,6 +22,7 @@ import {CarouselModule} from 'primeng/carousel';
 import {CardModule} from 'primeng/card';
 import {InputTextModule} from 'primeng/inputtext';
 import {ChartModule} from 'primeng/chart';
+import { MegaMenuModule } from 'primeng/megamenu';
 
 import { AppHome } from './app.home';
 import { RouterModule, Routes } from '@angular/router';
@@ -32,10 +33,13 @@ import { PedidoComponent } from './pedido/pedido.component';
 import { OfertaComponent } from './oferta/oferta.component';
 import { ProdutoComponent } from './produto/produto.component';
 import { ResumoPedidoComponent } from './pedido/resumo-pedido/resumo-pedido.component';
+import { UsuarioMainPageComponent } from './usuario/usuario-main-page.component';
 
 const appRoutes: Routes = [
   {path: '', component: WelcomeComponent},
-  {path: 'usuario', component: UsuarioComponent},
+  {path: 'usuario', component: UsuarioMainPageComponent, children: [
+    {path: '', component: UsuarioComponent}
+  ]},
   {path: 'pedido', component: PedidoComponent},
   {path: 'oferta', component: OfertaComponent},
   {path: 'produto', component: ProdutoComponent}
@@ -51,6 +55,7 @@ const appRoutes: Routes = [
     OfertaComponent,
     ProdutoComponent,
     ResumoPedidoComponent,
+    UsuarioMainPageComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +79,7 @@ const appRoutes: Routes = [
     CardModule,
     InputTextModule,
     ChartModule,
+    MegaMenuModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ConfirmationService],

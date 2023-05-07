@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
@@ -25,7 +25,7 @@ export class UsuarioComponent implements OnInit {
   };
 
   paginatedResponse: PaginatedResponse<Usuario>;
-  first: number = 0;
+  page: number = 0;
   rows: number = 5;
   total: number = 0;
   usuarios: Usuario[] = [];
@@ -42,11 +42,26 @@ export class UsuarioComponent implements OnInit {
     this.fetchCountUsuarios();
   }
 
-  onPage(event) {
-    console.log('onPage', event);
-    this.first = Math.floor(event.first / event.rows); 
+  onPage(event: any) {
+    this.page = Math.floor(event.first / event.rows); 
     this.fetchUsuarios();
     this.loading = false;
+  }
+
+  onSort(event: any) {
+    return this.usuarios.sort((usuario1, usuario2) => {
+      const valueFieldUsuario1 = usuario1[event.field];
+      const valueFieldUsuario2 = usuario2[event.field];
+      let comparison = 0;
+  
+      if (valueFieldUsuario1 > valueFieldUsuario2) {
+        comparison = 1;
+      } else if (valueFieldUsuario1 < valueFieldUsuario2) {
+        comparison = -1;
+      }
+  
+      return comparison * event.order;
+    });
   }
 
   postUsuario() {
@@ -75,12 +90,10 @@ export class UsuarioComponent implements OnInit {
   }
 
   fetchUsuarios() {
-    console.log('fetching usuarios.');
     this.loading = true;
-    console.log("fetchUsuarios first: ", this.first);
-    this.usuarioService.fetchUsuariosPaginated(this.first, this.rows).subscribe(
+    console.log("Fetch Usuarios page", this.page);
+    this.usuarioService.fetchUsuariosPaginated(this.page, this.rows).subscribe(
       paginatedResponse => {
-        console.log('Response', paginatedResponse);
         this.paginatedResponse = {...paginatedResponse};
       },
       error => {        
@@ -89,14 +102,19 @@ export class UsuarioComponent implements OnInit {
         this.loading = false;
       },
       () => {
-        this.loading = false;
-        if(this.paginatedResponse && this.paginatedResponse.content) {
-          this.usuarios = [];
-          this.paginatedResponse.content.forEach(usuario => {
-            this.usuarios.push(usuario);  
-          });
-          console.log("usuarios: ", this.usuarios);
-        } 
+        try {
+          this.loading = false;
+          
+          if (this.paginatedResponse?.content) {
+            this.usuarios = [...this.paginatedResponse.content];
+            console.log("usuarios: ", this.usuarios);
+          } else {
+            console.log("There was an error retrieving data.");
+          }
+        } catch (error) {
+          console.log("An error occurred: ", error);
+        }
+        
       }
     );       
   }
@@ -128,31 +146,6 @@ export class UsuarioComponent implements OnInit {
   usuarioById(index: number, usuario: Usuario) {
     return usuario.id;
   }
-
-
-  next() {
-    this.first = this.first + this.rows;
-    this.fetchUsuarios();
-  }
-
-  prev() {
-      this.first = this.first - this.rows;
-      this.fetchUsuarios();
-  }
-
-  reset() {
-      this.first = 0;
-      this.fetchUsuarios();
-  }
-
-  isLastPage(): boolean {
-      return this.first === this.total;
-  }
-
-  isFirstPage(): boolean {
-      return this.first === 0;
-  }
-
 
   isUnexpectedError() {
     return this.error && this.error.error.type !== undefined;
