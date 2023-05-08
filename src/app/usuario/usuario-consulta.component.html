@@ -1,0 +1,122 @@
+<p-dialog showHeader="false" [(visible)]="mensagem">
+    {{mensagem}}
+</p-dialog>
+<div *ngIf="error" class="alert" [ngClass]="{'alert-danger': isUnexpectedError(), 'alert-warning': isBusinessError()}">
+    <h1 *ngIf="isUnexpectedError()">Um Erro aconteceu</h1>
+    <p>{{isUnexpectedError() ? "Verifique com o administrador, pois a API pode estar fora." + error.message : error.error.message}}</p>
+  </div>
+<p-panel header="Filtro">
+    <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <div class="p-fluid grid p-4">
+            <div class="field col-12 md:col-4">
+                <div class="p-float-label">
+                    <input id="nome"
+                        name="nome"
+                        type="text"
+                        pInputText                    
+                        [(ngModel)]="usuario.nome"
+                        #nome="ngModel">
+                    <label for="nome">Nome</label>              
+                </div>
+            </div>
+            <div class="field col-12 md:col-4">  
+                <div class="p-float-label">
+                    <input id="sobrenome"
+                        name="sobrenome"
+                        type="text" 
+                        pInputText                    
+                        [(ngModel)]="usuario.sobrenome"
+                        #sobrenome="ngModel">
+                    <label for="sobrenome">Sobrenome</label>
+                </div>
+            </div>
+            <div class="field col-12 md:col-4">     
+                <div class="p-float-label">
+                    <p-inputMask
+                        id="cpf"
+                        inputId="cpf"
+                        name="cpf"
+                        [(ngModel)]="usuario.cpf"
+                        mask="999.999.999-99"
+                        showClear="true"
+                        ariaRequired="true"
+                        aria-describedby="cpf-help"
+                        #cpf="ngModel">
+                    </p-inputMask>
+                    <label for="cpf">CPF</label>
+                </div>
+            </div>
+            <div class="field col-12 md:col-4">
+                <div class="p-float-label">
+                    <p-calendar
+                        inputId="dataNascimento"
+                        name="dataNascimento"
+                        [(ngModel)]="usuario.dataNascimento"
+                        [showIcon]="true"
+                        dateFormat="dd/mm/yyyy"
+                        aria-describedby="dataNascimento-help"
+                        appendTo="body"
+                        showClear="true"
+                        dateFormat="dd/mm/yy"
+                        #dataNascimento="ngModel">
+                    </p-calendar>
+                    <label for="dataNascimento">Nascimento</label>
+                </div>
+            </div>          
+        </div>
+        <p-button type="submit">Consultar</p-button>
+        <p-button type="button" styleClass="p-button-secondary" (click)="f.reset()" style="margin-left: 20px">Limpar</p-button>
+
+    </form>
+</p-panel>
+
+<div class="card">
+<p-table #dt [value]="usuarios" [rows]="rows" [paginator]="true"
+        styleClass="p-datatable-striped"
+        [globalFilterFields]="['nome','sobrenome','cpf','dataNascimento']" responsiveLayout="scroll"
+        [rowHover]="true" dataKey="id"
+        [totalRecords]="total"
+        (onPage)="onPage($event)" [lazy]="true" [loading]="loading" [loadingIcon]="'pi pi-spinner'"
+        (onSort)="onSort($event)"        
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Usuários</h5>
+                <span class="p-input-icon-right"></span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
+                <th pSortableColumn="sobrenome">Sobrenome <p-sortIcon field="sobrenome"></p-sortIcon></th>
+                <th pSortableColumn="cpf">CPF <p-sortIcon field="cpf"></p-sortIcon></th>
+                <th pSortableColumn="dataNascimento">Data de Nascimento <p-sortIcon field="dataNascimento"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-usuario>
+            <tr>
+                <td>{{usuario.id}}</td>
+                <td>{{usuario.nome}}</td>
+                <td>{{usuario.sobrenome}}</td>
+                <td>{{usuario.cpf}}</td>
+                <td>{{usuario.dataNascimento | date:'dd/MM/yyyy'}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteUsuario(usuario.id)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                No total há {{ total }} usuários.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+  <div *ngIf="usuarios.length == 0 && !loading" class="alert alert-warning">Nenhum usuário encontrado.</div>
+  <div class="d-flex justify-content-center" *ngIf="loading">
+    <div class="spinner-border" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
