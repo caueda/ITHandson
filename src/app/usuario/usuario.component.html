@@ -1,9 +1,4 @@
-<p-dialog header="Aviso" [(visible)]="mensagem" [style]="{width: '30vw'}">
-    <p>{{mensagem}}</p>
-    <ng-template pTemplate="footer">
-        <p-button icon="pi pi-check" (click)="mensagem=''" label="Ok" styleClass="p-button-text"></p-button>
-    </ng-template>
-</p-dialog>
+<app-alert-dialog-component [closeDialog]="closeDialog" [onHide]="closeDialog" [mensagem]="mensagem"></app-alert-dialog-component>
 
 <div *ngIf="error" class="alert" [ngClass]="{'alert-danger': isUnexpectedError(), 'alert-warning': isBusinessError()}">
     <h1 *ngIf="isUnexpectedError()">Um Erro aconteceu</h1>

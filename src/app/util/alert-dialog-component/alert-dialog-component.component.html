@@ -1,0 +1,6 @@
+<p-dialog header="Alerta" [(visible)]="mensagem" [style]="{width: '30vw'}" (onHide)="onHide()">
+    <p>{{mensagem}}</p>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="closeDialog()" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

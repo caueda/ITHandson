@@ -1,9 +1,4 @@
-<p-dialog header="Aviso" [(visible)]="mensagem" [style]="{width: '30vw'}" (onHide)="closeDialog()">
-    <p>{{mensagem}}</p>
-    <ng-template pTemplate="footer">
-        <p-button icon="pi pi-check" (click)="closeDialog()" label="Ok" styleClass="p-button-text"></p-button>
-    </ng-template>
-</p-dialog>
+<app-alert-dialog-component [onHide]="closeDialog" [mensagem]="mensagem" [closeDialog]="closeDialog"></app-alert-dialog-component>
 
 <div *ngIf="error" class="alert" [ngClass]="{'alert-danger': isUnexpectedError(), 'alert-warning': isBusinessError()}">
     <h1 *ngIf="isUnexpectedError()">Um Erro aconteceu</h1>
@@ -16,7 +11,7 @@
         <div class="p-fluid grid p-4">
             <div class="field col-12 md:col-4">
                 <div class="p-float-label">
-                    <input id="id" name="id" type="text" pInputText [(ngModel)]="usuario.id" #id="ngModel">
+                    <input id="id" name="id" type="text" pInputText [(ngModel)]="usuario.id" #id="ngModel" readonly>
                     <label for="id">Identificador</label>
                 </div>
                 <small *ngIf="nome.touched && nome.invalid" id="sobrenome-help" class="p-error">O nome é
@@ -66,7 +61,10 @@
                     class="p-error">A data de nascimento é obrigatória.</small>
             </div>
         </div>
-        <p-button type="submit" [disabled]="f.invalid">Alterar</p-button>
+        <div class="button-container">
+            <p-button type="submit" [disabled]="f.invalid">Alterar</p-button>
+            <p-button type="button" styleClass="p-button-secondary" (click)="closeDialog()">Cancelar</p-button>
+        </div>        
     </form>
 </p-panel>
 <div class="d-flex justify-content-center" *ngIf="loading">

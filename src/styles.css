@@ -7,7 +7,16 @@
     width: 100%;
     position: relative;
     font-weight: bold;
-    bottom: 1.2em;  
+    bottom: 1.2em;
     margin-top: 2em;
     margin-left: 0.5em;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
+}
+
+.button-container button {
+    flex-shrink: 0;
 }

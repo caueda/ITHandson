@@ -4,7 +4,6 @@ import { NgForm } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { Usuario } from '../model/usuario.model';
 import { UsuarioService } from '../service/usuario.service';
-import { PaginatedResponse } from '../model/paginatedResponse';
 
 @Component({
   selector: 'app-usuario',
@@ -60,5 +59,9 @@ export class UsuarioComponent implements OnInit {
 
   isBusinessError() {
     return this.error && this.error.error.type === undefined;
+  }
+
+  closeDialog = () => {
+    this.mensagem = null;
   }
 }

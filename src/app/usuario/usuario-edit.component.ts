@@ -11,18 +11,17 @@ import {DynamicDialogConfig} from 'primeng/dynamicdialog';
   selector: 'app-usuario-edit',
   templateUrl: './usuario-edit.component.html',
   styleUrls: ['./usuario-edit.component.css'],
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class UsuarioEditComponent implements OnInit {
-
-  @ViewChild("f") form: NgForm;
+  @ViewChild('f') form: NgForm;
 
   usuario: Usuario = {
-    id: null, 
-    nome: '', 
-    sobrenome: '', 
+    id: null,
+    nome: '',
+    sobrenome: '',
     cpf: '',
-    dataNascimento: null
+    dataNascimento: null,
   };
 
   usuarioDataNascimento: Date;
@@ -31,16 +30,20 @@ export class UsuarioEditComponent implements OnInit {
   error = null;
   mensagem: string;
 
-  constructor(private http: HttpClient, private usuarioService: UsuarioService,
-            private confirmationService: ConfirmationService, 
-            public ref: DynamicDialogRef, public config: DynamicDialogConfig) { }
+  constructor(
+    private http: HttpClient,
+    private usuarioService: UsuarioService,
+    private confirmationService: ConfirmationService,
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig
+  ) {}
 
   ngOnInit(): void {
     let id = this.config.data.id;
     this.usuarioService.fetchUsuarioById(id).subscribe(
       (usuarioReturned) => {
-        this.usuario = { ...usuarioReturned };      
-        this.usuarioDataNascimento = new Date(this.usuario.dataNascimento);  
+        this.usuario = { ...usuarioReturned };
+        this.usuarioDataNascimento = new Date(this.usuario.dataNascimento);
         this.error = null;
       },
       (error) => {
@@ -51,27 +54,31 @@ export class UsuarioEditComponent implements OnInit {
   }
 
   updateUsuario() {
-    this.usuarioService.updateUsuario({... this.usuario, dataNascimento: this.usuarioDataNascimento})
+    this.usuarioService
+      .updateUsuario({
+        ...this.usuario,
+        dataNascimento: this.usuarioDataNascimento,
+      })
       .subscribe(
-        res => {
+        (res) => {
           this.error = null;
-          this.mensagem = "Usuário alterado com sucesso."
+          this.mensagem = 'Usuário alterado com sucesso.';
         },
-        error => {
+        (error) => {
           console.log(error);
           this.error = error;
           this.mensagem = null;
-        });
+        }
+      );
   }
 
-  closeDialog() {
+  closeDialog = () => {
     this.mensagem = '';
     this.ref.close();
-  }
+  };
 
   onSubmit() {
-    if(this.usuario )
-    this.updateUsuario();
+    if (this.usuario) this.updateUsuario();
     this.form.reset();
   }
 

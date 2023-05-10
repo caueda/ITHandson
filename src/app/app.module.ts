@@ -36,6 +36,7 @@ import { ResumoPedidoComponent } from './pedido/resumo-pedido/resumo-pedido.comp
 import { UsuarioMainPageComponent } from './usuario/usuario-main-page.component';
 import { UsuarioConsultaComponent } from './usuario/usuario-consulta.component';
 import { UsuarioEditComponent } from './usuario/usuario-edit.component';
+import { AlertDialogComponentComponent } from './util/alert-dialog-component/alert-dialog-component.component';
 
 const appRoutes: Routes = [
   {path: '', component: WelcomeComponent},
@@ -61,7 +62,8 @@ const appRoutes: Routes = [
     ProdutoComponent,
     ResumoPedidoComponent,
     UsuarioMainPageComponent,
-    UsuarioEditComponent
+    UsuarioEditComponent,
+    AlertDialogComponentComponent
   ],
   imports: [
     BrowserModule,
