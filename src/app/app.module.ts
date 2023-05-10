@@ -22,6 +22,7 @@ import {CarouselModule} from 'primeng/carousel';
 import {CardModule} from 'primeng/card';
 import {InputTextModule} from 'primeng/inputtext';
 import {ChartModule} from 'primeng/chart';
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
 
 import { AppHome } from './app.home';
 import { RouterModule, Routes } from '@angular/router';
@@ -34,6 +35,7 @@ import { ProdutoComponent } from './produto/produto.component';
 import { ResumoPedidoComponent } from './pedido/resumo-pedido/resumo-pedido.component';
 import { UsuarioMainPageComponent } from './usuario/usuario-main-page.component';
 import { UsuarioConsultaComponent } from './usuario/usuario-consulta.component';
+import { UsuarioEditComponent } from './usuario/usuario-edit.component';
 
 const appRoutes: Routes = [
   {path: '', component: WelcomeComponent},
@@ -58,7 +60,8 @@ const appRoutes: Routes = [
     OfertaComponent,
     ProdutoComponent,
     ResumoPedidoComponent,
-    UsuarioMainPageComponent
+    UsuarioMainPageComponent,
+    UsuarioEditComponent
   ],
   imports: [
     BrowserModule,
@@ -82,6 +85,7 @@ const appRoutes: Routes = [
     CardModule,
     InputTextModule,
     ChartModule,
+    DynamicDialogModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ConfirmationService],

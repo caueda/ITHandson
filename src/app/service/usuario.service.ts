@@ -15,6 +15,10 @@ export class UsuarioService {
     return this.http.post(this.REST_API_PESSOA, usuario);
   }
 
+  updateUsuario(usuario: Usuario) {
+    return this.http.put(this.REST_API_PESSOA, usuario);
+  }
+
   fetchUsuariosByExample(page: number = 0, size: number = 0, usuario: Usuario) {
     let params = new HttpParams()
       .set('page', page.toString())
@@ -56,5 +60,9 @@ export class UsuarioService {
 
   deleteUsuario(id: string) {
     return this.http.delete(this.REST_API_PESSOA + `/${id}`);
+  }
+
+  fetchUsuarioById(id: string) {
+    return this.http.get<Usuario>(this.REST_API_PESSOA + `/${id}`);
   }
 }

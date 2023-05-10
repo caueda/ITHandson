@@ -1,7 +1,7 @@
-<p-dialog header="Aviso" [(visible)]="mensagem" [style]="{width: '30vw'}">
+<p-dialog header="Aviso" [(visible)]="mensagem" [style]="{width: '30vw'}" (onHide)="closeDialog()">
     <p>{{mensagem}}</p>
     <ng-template pTemplate="footer">
-        <p-button icon="pi pi-check" (click)="mensagem=''" label="Ok" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-check" (click)="closeDialog()" label="Ok" styleClass="p-button-text"></p-button>
     </ng-template>
 </p-dialog>
 
@@ -11,12 +11,20 @@
         error.error.message}}</p>
 </div>
 
-<p-panel header="Dados do Cadastro">
+<p-panel header="Editar Usuário">
     <form (ngSubmit)="onSubmit()" #f="ngForm">
         <div class="p-fluid grid p-4">
             <div class="field col-12 md:col-4">
                 <div class="p-float-label">
-                    <input id="nome" name="nome" type="text" required="true" pInputText [(ngModel)]="usuario.nome"
+                    <input id="id" name="id" type="text" pInputText [(ngModel)]="usuario.id" #id="ngModel">
+                    <label for="id">Identificador</label>
+                </div>
+                <small *ngIf="nome.touched && nome.invalid" id="sobrenome-help" class="p-error">O nome é
+                    obrigatório.</small>
+            </div>
+            <div class="field col-12 md:col-4">
+                <div class="p-float-label">
+                    <input id="nome" name="nome" type="text" required="true" pInputText [(ngModel)]="usuario.nome" 
                         [ngClass]="nome.touched && nome.invalid ? 'ng-dirty ng-invalid mr-2' : ''" #nome="ngModel">
                     <label for="nome">Nome</label>
                 </div>
@@ -46,19 +54,19 @@
             </div>
             <div class="field col-12 md:col-4">
                 <div class="p-float-label">
-                    <p-calendar inputId="dataNascimento" name="dataNascimento" [(ngModel)]="usuario.dataNascimento"
-                        [showIcon]="true" dateFormat="dd/mm/yyyy" aria-describedby="dataNascimento-help" appendTo="body"
-                        required="true" showClear="true" dateFormat="dd/mm/yy"
+                    <p-calendar inputId="dataNascimento" name="dataNascimento" [(ngModel)]="usuarioDataNascimento"
+                        [showIcon]="true" dateFormat="dd/mm/yy" aria-describedby="dataNascimento-help" appendTo="body"
+                        required="true" showClear="true"
                         [ngClass]="dataNascimento.touched && dataNascimento.invalid ? 'ng-dirty ng-invalid' : ''"
                         #dataNascimento="ngModel">
                     </p-calendar>
-                    <label for="dataNascimento">Nascimento</label>
+                    <label for="dataNascimento">Nascimentoj</label>
                 </div>
                 <small *ngIf="dataNascimento.touched && dataNascimento.invalid" id="dataNascimento-help"
                     class="p-error">A data de nascimento é obrigatória.</small>
             </div>
         </div>
-        <p-button type="submit" [disabled]="f.invalid">Cadastrar</p-button>
+        <p-button type="submit" [disabled]="f.invalid">Alterar</p-button>
     </form>
 </p-panel>
 <div class="d-flex justify-content-center" *ngIf="loading">

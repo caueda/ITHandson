@@ -1,6 +1,10 @@
-<p-dialog showHeader="false" [(visible)]="mensagem">
-    {{mensagem}}
+<p-dialog header="Aviso" [(visible)]="mensagem" [style]="{width: '30vw'}">
+    <p>{{mensagem}}</p>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="mensagem=''" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
 </p-dialog>
+  
 <div *ngIf="error" class="alert" [ngClass]="{'alert-danger': isUnexpectedError(), 'alert-warning': isBusinessError()}">
     <h1 *ngIf="isUnexpectedError()">Um Erro aconteceu</h1>
     <p>{{isUnexpectedError() ? "Verifique com o administrador, pois a API pode estar fora." + error.message : error.error.message}}</p>
@@ -65,8 +69,7 @@
             </div>          
         </div>
         <p-button type="submit">Consultar</p-button>
-        <p-button type="button" styleClass="p-button-secondary" (click)="f.reset()" style="margin-left: 20px">Limpar</p-button>
-
+<p-button type="button" styleClass="p-button-secondary" (click)="f.reset()" [style]="{'margin-left': '20px'}">Limpar</p-button>
     </form>
 </p-panel>
 
@@ -92,7 +95,7 @@
                 <th pSortableColumn="sobrenome">Sobrenome <p-sortIcon field="sobrenome"></p-sortIcon></th>
                 <th pSortableColumn="cpf">CPF <p-sortIcon field="cpf"></p-sortIcon></th>
                 <th pSortableColumn="dataNascimento">Data de Nascimento <p-sortIcon field="dataNascimento"></p-sortIcon></th>
-                <th></th>
+                <th>Ação</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-usuario>
@@ -103,7 +106,12 @@
                 <td>{{usuario.cpf}}</td>
                 <td>{{usuario.dataNascimento | date:'dd/MM/yyyy'}}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteUsuario(usuario.id)"></button>
+                    <div class="button-container">
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                            (click)="deleteUsuario(usuario.id)"></button>
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-secondary"
+                            (click)="editUsuario(usuario.id)"></button>
+                    </div>
                 </td>
             </tr>
         </ng-template>

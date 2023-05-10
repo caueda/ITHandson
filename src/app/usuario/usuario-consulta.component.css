@@ -1,4 +1,12 @@
-input.ng-touched.ng-invalid
-{
+input.ng-touched.ng-invalid {
     border: 1px solid red !important;
 }
+
+.button-container {
+    display: flex;
+    gap: 10px;
+  }
+
+  .button-container button {
+    flex-shrink: 0;
+  }
