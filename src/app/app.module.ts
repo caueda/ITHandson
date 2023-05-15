@@ -2,6 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CalendarModule} from 'primeng/calendar';
@@ -26,6 +27,7 @@ import {DynamicDialogModule} from 'primeng/dynamicdialog';
 
 import { AppHome } from './app.home';
 import { RouterModule, Routes } from '@angular/router';
+import { UsuarioFormComponent } from './usuario/form/usuario-form.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { UsuarioDetailComponent } from './usuario/usuario-detail/usuario-detail.component';
@@ -54,6 +56,7 @@ const appRoutes: Routes = [
   declarations: [
     AppHome,
     UsuarioComponent,
+    UsuarioFormComponent,
     UsuarioConsultaComponent,
     WelcomeComponent,
     UsuarioDetailComponent,
@@ -68,6 +71,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     CalendarModule,
     InputMaskModule,

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { Usuario } from '../model/usuario.model';
 import { UsuarioService } from '../service/usuario.service';
@@ -14,7 +13,7 @@ import {DynamicDialogConfig} from 'primeng/dynamicdialog';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class UsuarioEditComponent implements OnInit {
-  @ViewChild('f') form: NgForm;
+  @ViewChild("usuarioForm") usuarioForm: any;
 
   usuario: Usuario = {
     id: null,
@@ -23,8 +22,6 @@ export class UsuarioEditComponent implements OnInit {
     cpf: '',
     dataNascimento: null,
   };
-
-  usuarioDataNascimento: Date;
 
   loading = false;
   error = null;
@@ -43,8 +40,8 @@ export class UsuarioEditComponent implements OnInit {
     this.usuarioService.fetchUsuarioById(id).subscribe(
       (usuarioReturned) => {
         this.usuario = { ...usuarioReturned };
-        this.usuarioDataNascimento = new Date(this.usuario.dataNascimento);
-        this.error = null;
+        this.usuarioForm.setUsuario(this.usuario);
+        this.error = null;        
       },
       (error) => {
         console.log(error);
@@ -53,33 +50,31 @@ export class UsuarioEditComponent implements OnInit {
     );
   }
 
-  updateUsuario() {
-    this.usuarioService
-      .updateUsuario({
-        ...this.usuario,
-        dataNascimento: this.usuarioDataNascimento,
-      })
-      .subscribe(
-        (res) => {
-          this.error = null;
-          this.mensagem = 'Usuário alterado com sucesso.';
-        },
-        (error) => {
-          console.log(error);
-          this.error = error;
-          this.mensagem = null;
-        }
-      );
+  updateUsuario(usuario: any = null) {
+    if(usuario) {
+      this.usuarioService
+        .updateUsuario({
+          ... usuario,
+          id: this.usuario.id,
+        })
+        .subscribe(
+          (res) => {
+            this.error = null;
+            this.mensagem = 'Usuário alterado com sucesso.';
+            this.usuarioForm.resetForm();
+          },
+          (error) => {
+            console.log(error);
+            this.error = error;
+            this.mensagem = null;
+          }
+        );
+    }
   }
 
   closeDialog = () => {
-    this.mensagem = '';
+    this.mensagem = null;
     this.ref.close();
-  };
-
-  onSubmit() {
-    if (this.usuario) this.updateUsuario();
-    this.form.reset();
   }
 
   isUnexpectedError() {

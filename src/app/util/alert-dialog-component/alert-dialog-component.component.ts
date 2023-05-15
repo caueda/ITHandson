@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-alert-dialog-component',
+  selector: 'alert-dialog-component',
   templateUrl: './alert-dialog-component.component.html',
   styleUrls: ['./alert-dialog-component.component.css']
 })

@@ -1,0 +1,65 @@
+<alert-dialog-component [closeDialog]="closeDialog" [onHide]="closeDialog" [mensagem]="mensagem"></alert-dialog-component>
+
+<div *ngIf="isUnexpectedError()" class="alert alert-danger">
+    <h1>Um Erro aconteceu</h1>
+    <p>{{"Verifique com o administrador, pois a API pode estar fora." + errorResponse.message }}</p>
+</div>
+
+<p-panel header="Dados do Cadastro">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <div class="p-fluid grid p-4">
+            <div class="field col-12 md:col-4">
+                <div class="p-float-label">
+                    <input id="nome" name="nome" type="text" required="true" pInputText
+                        [ngClass]="form.get('nome').touched && form.get('nome').invalid ? 'ng-dirty ng-invalid mr-2' : ''" formControlName="nome">
+                    <label for="nome">Nome</label>
+                </div>
+                <small *ngIf="form.get('nome').touched && form.get('nome').invalid" id="sobrenome-help" class="p-error">O nome é
+                    obrigatório.</small>
+                <small *ngIf="errorResponse?.error?.field === 'nome'" class="p-error">{{errorResponse.error.message}}</small>
+            </div>
+            <div class="field col-12 md:col-4">
+                <div class="p-float-label">
+                    <input id="sobrenome" name="sobrenome" type="text" required="true" pInputText
+                        [ngClass]="form.get('sobrenome').touched && form.get('sobrenome').invalid ? 'ng-dirty ng-invalid mr-2' : ''"
+                        formControlName="sobrenome">
+                    <label for="sobrenome">Sobrenome</label>
+                </div>
+                <small *ngIf="form.get('sobrenome').touched && form.get('sobrenome').invalid" id="sobrenome-help" class="p-error">O sobrenome é
+                    obrigatório.</small>
+                    <small *ngIf="errorResponse?.error?.field === 'sobrenone'" class="p-error">{{errorResponse.error.message}}</small>
+            </div>
+            <div class="field col-12 md:col-4">
+                <div class="p-float-label">
+                    <p-inputMask id="cpf" inputId="cpf" name="cpf" mask="999.999.999-99"
+                        showClear="true" required="true" ariaRequired="true" aria-describedby="cpf-help"
+                        [ngClass]="form.get('cpf').touched && form.get('cpf').invalid ? 'ng-dirty ng-invalid mr-2' : ''" formControlName="cpf">
+                    </p-inputMask>
+                    <label for="cpf">CPF</label>
+                </div>
+                <small *ngIf="form.get('cpf').touched && form.get('cpf').invalid" id="cpf-help" class="p-error">O CPF é obrigatório.</small>
+                <small *ngIf="errorResponse?.error?.field === 'cpf'" class="p-error">{{errorResponse.error.message}}</small>
+            </div>
+            <div class="field col-12 md:col-4">
+                <div class="p-float-label">
+                    <p-calendar inputId="dataNascimento" name="dataNascimento"
+                        [showIcon]="true" dateFormat="dd/mm/yyyy" aria-describedby="dataNascimento-help" appendTo="body"
+                        required="true" showClear="true" dateFormat="dd/mm/yy"
+                        [ngClass]="form.get('dataNascimento').touched && form.get('dataNascimento').invalid ? 'ng-dirty ng-invalid' : ''"
+                        formControlName="dataNascimento">
+                    </p-calendar>
+                    <label for="dataNascimento">Nascimento</label>
+                </div>
+                <small *ngIf="form.get('dataNascimento').touched && form.get('dataNascimento').invalid" id="dataNascimento-help"
+                    class="p-error">A data de nascimento é obrigatória.</small>
+                <small *ngIf="errorResponse?.error?.field === 'dataNascimento'" class="p-error">{{errorResponse.error.message}}</small>
+            </div>
+        </div>
+        <p-button type="submit" [disabled]="form.invalid">{{ (usuarioId) ? 'Editar' : 'Cadastrar'}}</p-button>
+    </form>
+</p-panel>
+<div class="d-flex justify-content-center" *ngIf="loading">
+    <div class="spinner-border" role="status">
+        <span class="sr-only"></span>
+    </div>
+</div>

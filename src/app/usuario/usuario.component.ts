@@ -1,8 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { ConfirmationService } from 'primeng/api';
-import { Usuario } from '../model/usuario.model';
 import { UsuarioService } from '../service/usuario.service';
 
 @Component({
@@ -13,52 +10,37 @@ import { UsuarioService } from '../service/usuario.service';
 })
 export class UsuarioComponent implements OnInit {
 
-  @ViewChild("f") form: NgForm;
-
-  usuario: Usuario = {
-    id: null, 
-    nome: '', 
-    sobrenome: '', 
-    cpf: '',
-    dataNascimento: null
-  };
-
   loading = false;
-  error = null;
+  errorResponse = null;
   mensagem: string;
 
-  constructor(private http: HttpClient, private usuarioService: UsuarioService,
-            private confirmationService: ConfirmationService) { }
-
+  @ViewChild('usuarioForm') usuarioForm: any;
+  
   ngOnInit(): void {
   }
 
-  postUsuario() {
-    this.usuarioService.saveUsuario({... this.usuario})
+  constructor(private http: HttpClient, private usuarioService: UsuarioService) { }
+
+  postUsuario(usuario: any = null) {
+    this.usuarioService.saveUsuario({... usuario})
       .subscribe(
         res => {
-          this.error = null;
-          this.mensagem = "Usuário criado com sucesso."
+          this.errorResponse = null;
+          this.mensagem = "Usuário criado com sucesso.";          
+          this.usuarioForm.resetForm();
         },
-        error => {
-          console.log(error);
-          this.error = error;
-          this.mensagem = null;
-        });
-  }
-
-  onSubmit() {
-    if(this.usuario )
-    this.postUsuario();
-    this.form.reset();
+        error => {          
+          this.errorResponse = {... error };
+          this.mensagem = null;          
+        });        
   }
 
   isUnexpectedError() {
-    return this.error && this.error.error.type !== undefined;
+    return  this.errorResponse && (this.errorResponse?.error?.type !== undefined);
   }
 
   isBusinessError() {
-    return this.error && this.error.error.type === undefined;
+    return this.errorResponse && (this.errorResponse?.field);
   }
 
   closeDialog = () => {

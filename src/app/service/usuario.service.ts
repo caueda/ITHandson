@@ -4,6 +4,7 @@ import { Usuario } from "../model/usuario.model";
 import { environment } from "src/environments/environment";
 import { PaginatedResponse } from "../model/paginatedResponse";
 import { Observable } from "rxjs";
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class UsuarioService {
@@ -11,9 +12,17 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) {}
 
-  saveUsuario(usuario: Usuario) {
-    return this.http.post(this.REST_API_PESSOA, usuario);
-  }
+saveUsuario(usuario: Usuario): Observable<any> {
+  return this.http.post(this.REST_API_PESSOA, usuario).pipe(
+    map(response => {
+      return response;
+    }),
+    catchError(errorResponse => {
+      throw errorResponse;
+    })
+  );
+}
+
 
   updateUsuario(usuario: Usuario) {
     return this.http.put(this.REST_API_PESSOA, usuario);
