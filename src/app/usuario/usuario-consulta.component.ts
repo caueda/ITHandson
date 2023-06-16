@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ConfirmationService, Header } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { Usuario } from '../model/usuario.model';
 import { UsuarioService } from '../service/usuario.service';
 import { PaginatedResponse } from '../model/paginatedResponse';
@@ -37,7 +36,6 @@ export class UsuarioConsultaComponent implements OnInit {
   mensagem: string;
 
   constructor(
-    private http: HttpClient,
     private usuarioService: UsuarioService,
     private confirmationService: ConfirmationService,
     private dialogService: DialogService
@@ -129,17 +127,16 @@ export class UsuarioConsultaComponent implements OnInit {
   }
 
   editUsuario(id: string) {
-    const ref = this.dialogService.open(UsuarioEditComponent, {
-      data: { id: id },
-      header: 'Editar Usuário',
-      width: '70%',
-      contentStyle: { 'max-height': '500px', overflow: 'auto' },
-    });
+      const ref = this.dialogService.open(UsuarioEditComponent, {
+        data: { id },
+        header: 'Editar Usuário',
+        width: '70%',
+        contentStyle: { 'max-height': '500px', overflow: 'auto' },
+      });
 
-    ref.onClose.subscribe((usuario: Usuario) => {
-        this.fetchUsuarios();
-    });
+      ref.onClose.subscribe((usuario: Usuario) => this.fetchUsuarios());
   }
+
 
   onSubmit() {
     if (this.usuario) this.fetchUsuarios();

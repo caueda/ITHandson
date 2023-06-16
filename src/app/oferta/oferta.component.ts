@@ -95,7 +95,6 @@ export class OfertaComponent implements OnInit {
       produtos => {
         this.produtos = [];
         produtos.forEach(produto => this.produtos.push({... produto}));
-        console.log(this.produtos)
       },
       error => {
         console.log('Error', error);
@@ -109,7 +108,6 @@ export class OfertaComponent implements OnInit {
       ofertas => {
         this.ofertas = [];
         ofertas.forEach(oferta => this.ofertas.push({... oferta}));
-        console.log(this.produtos)
       },
       error => {
         console.log('Error', error);

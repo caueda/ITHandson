@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: 'app-produto',
@@ -11,7 +12,7 @@ export class ProdutoComponent implements OnInit {
 
   ngOnInit(): void {
     const script = document.createElement('script');
-    script.src = 'http://localhost:4300/main.js';
+    script.src = environment.produto_micro_app_host + '/main.js';
     document.body.appendChild(script);
   }
 

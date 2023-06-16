@@ -58,6 +58,20 @@
               ],
               "outputHashing": "all"
             },
+            "stage": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.stage.ts"
+                }
+              ]
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -77,6 +91,9 @@
             },
             "development": {
               "browserTarget": "my-first-app:build:development"
+            },
+            "stage": {
+              "browserTarget": "my-first-app:build:stage"
             }
           },
           "defaultConfiguration": "development"

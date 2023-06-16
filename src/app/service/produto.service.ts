@@ -6,7 +6,7 @@ import { environment } from "src/environments/environment";
 @Injectable({providedIn: 'root'})
 export class ProdutoService {
 
-    REST_API_PRODUTO = environment.pedido_service_host + 'api/produto';
+    REST_API_PRODUTO = environment.oferta_service_host + 'api/v1/produto';
 
     constructor(private http: HttpClient) {}
     fetchProdutos() {

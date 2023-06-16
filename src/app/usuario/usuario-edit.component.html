@@ -1,4 +1,5 @@
-<usuario-form #usuarioForm [usuarioId]="config.data.id" [loading]="loading" [errorResponse]="error" [mensagem]="mensagem"
+<usuario-form #usuarioForm [usuarioId]="config.data.id" [loading]="loading" [errorResponse]="error" 
+    [mensagem]="mensagem"
     [isUnexpectedError]="isUnexpectedError" [isBusinessError]="isBusinessError"
     [closeDialog]="closeDialog" (usuarioFormEvent)="updateUsuario($event)">    
 </usuario-form>

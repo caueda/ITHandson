@@ -49,7 +49,9 @@ const appRoutes: Routes = [
   ]},
   {path: 'pedido', component: PedidoComponent},
   {path: 'oferta', component: OfertaComponent},
-  {path: 'produto', component: ProdutoComponent}
+  {path: 'produto', component: ProdutoComponent},
+  {path: 'produto/cadastrar', redirectTo: 'produto', pathMatch: 'full'},
+  {path: 'produto/consultar', redirectTo: 'produto', pathMatch: 'full'},
 ];
 
 @NgModule({

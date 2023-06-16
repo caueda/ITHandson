@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ConfirmationService } from 'primeng/api';
 import { Usuario } from '../model/usuario.model';
 import { UsuarioService } from '../service/usuario.service';
 import {DynamicDialogRef} from 'primeng/dynamicdialog';
@@ -28,9 +26,7 @@ export class UsuarioEditComponent implements OnInit {
   mensagem: string;
 
   constructor(
-    private http: HttpClient,
     private usuarioService: UsuarioService,
-    private confirmationService: ConfirmationService,
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig
   ) {}

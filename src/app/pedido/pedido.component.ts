@@ -32,6 +32,7 @@ export class PedidoComponent implements OnInit {
   precoUnitario: number;
   precoTotal: number;
   mensagem: string;
+  usuarios: Usuario[] = [];
 
   error: any;
 
@@ -86,11 +87,12 @@ export class PedidoComponent implements OnInit {
   }
 
   fetchUsuarios() {
-    console.log('fetching usuarios.');
     this.usuarioService.fetchUsuarios().subscribe(
-      paginatedResponse => this.paginatedResponse = {... paginatedResponse},
+      paginatedResponse => {
+        this.paginatedResponse = {... paginatedResponse};
+        this.paginatedResponse.content.forEach(usuario => this.usuarios.push({... usuario, label: `${usuario.nome} ${usuario.sobrenome}`}));        
+      },
       error => {        
-        console.log('Error', error);
         this.error = error;
       }
     );
@@ -101,7 +103,6 @@ export class PedidoComponent implements OnInit {
       produtos => {
         this.produtos = [];
         produtos.forEach(produto => this.produtos.push({... produto}));
-        console.log(this.produtos)
       },
       error => {
         console.log('Error', error);

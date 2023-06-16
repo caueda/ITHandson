@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  oferta_service_host: 'http://localhost:9999/',
-  pedido_service_host: 'http://localhost:8888/',
-  produto_micro_app_host: 'http://localhost:4200'
+  oferta_service_host: 'http://192.168.0.24:9999/',
+  pedido_service_host: 'http://192.168.0.24:8888/',
+  produto_micro_app_host: 'http://192.168.0.24:4300'
 };
 
 /*
